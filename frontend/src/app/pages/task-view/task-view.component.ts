@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
 import { TmplAstElement } from '@angular/compiler';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-task-view',
@@ -8,18 +9,25 @@ import { TmplAstElement } from '@angular/compiler';
   styleUrls: ['./task-view.component.scss']
 })
 export class TaskViewComponent implements OnInit {
-
-  constructor(private taskService: TaskService) { }
+lists:any[];
+tasks:any[];
+  constructor(private taskService: TaskService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(
+      (params: Params) => {
+        console.log(params);
+        this.taskService.getTasks(params.listId).subscribe((tasks: any[]) => {
+          this.tasks=tasks;
+        })
   }
-
-createNewList(){
-//we want to send a web request to create a list
-this.taskService.createList('Testing').subscribe((response: any) => {
-console.log(Response);
-});
-
-  }
+    )
+    this.taskService.getList().subscribe((lists:any[])=>{
+    this.lists=lists;
+    }
+    )
 }
+
+}
+
 
