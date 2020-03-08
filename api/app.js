@@ -141,7 +141,7 @@ app.patch('/lists/:listId/tasks/:taskId',  (req, res) => {
                 }
             ).then(()=>{
         
-            res.sendStatus(200);
+         res.send({message: 'updated successfully'});
         })
 });
 
