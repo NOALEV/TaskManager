@@ -4,10 +4,11 @@
             Create a new task
           </h1>
           <input #taskTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter task name...">
+          <input #taskTimeInput class="input has-background-light is-medium" type="text" placeholder="Enter task time...">
           <br><br>
           <div class="buttons is-right">
             <button class="button is-medium" routerLink="/">Cancel</button>
-            <button class="button is-primary has-text-white is-medium" (click)="createTask(taskTitleInput.value)">Create</button>
+            <button class="button is-primary has-text-white is-medium" (click)="createTask(taskTitleInput.value,taskTimeInput.value)">Create</button>
           </div>
         </div>
     </div>

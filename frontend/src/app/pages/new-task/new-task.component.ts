@@ -18,8 +18,8 @@ this.listId=params['listId'];
         })
   }
 
-  createTask(title: string) {
-    this.taskService.createTask(title, this.listId).subscribe((newTask: Task) => {
+  createTask(title: string, time:string) {
+    this.taskService.createTask(title,time,this.listId).subscribe((newTask: Task) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     })
   }

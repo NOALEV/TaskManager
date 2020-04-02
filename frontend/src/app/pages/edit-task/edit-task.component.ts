@@ -24,8 +24,8 @@ export class EditTaskComponent implements OnInit {
     )
   }
 
-  updateTask(title: string) {
-    this.taskService.updateTask(this.listId, this.taskId, title).subscribe(() => {
+  updateTask(title: string,time:string) {
+    this.taskService.updateTask(this.listId, this.taskId, title,time).subscribe(() => {
       this.router.navigate(['/lists', this.listId]);
     })
   }

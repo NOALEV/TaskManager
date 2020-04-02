@@ -212,6 +212,7 @@ app.post('/lists/:listId/tasks', authenticate, (req, res) => {
         if (canCreateTask) {
             let newTask = new Task({
                 title: req.body.title,
+                time: req.body.time,
                 _listId: req.params.listId
             });
             newTask.save().then((newTaskDoc) => {
