@@ -15,8 +15,8 @@ export class NewListComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  createList(title: string) {
-    this.taskService.createList(title).subscribe((list:List) => {
+  createList(title: string, category: string) {
+    this.taskService.createList(title,category).subscribe((list:List) => {
       console.log(list);
        // Now we navigate to /lists/task._id
        this.router.navigate([ '/lists', list._id ]); 

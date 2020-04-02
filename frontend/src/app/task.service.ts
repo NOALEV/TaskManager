@@ -14,9 +14,9 @@ export class TaskService {
     return this.webReqService.get('lists');
   }
 
-  createList(title: string) {
+  createList(title: string ,category: string) {
     // We want to send a web request to create a list
-    return this.webReqService.post('lists', { title });
+    return this.webReqService.post('lists', { title,category });
   }
 
   updateList(id: string, title: string) {

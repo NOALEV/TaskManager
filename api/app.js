@@ -133,9 +133,11 @@ app.post('/lists', authenticate, (req, res) => {
     // We want to create a new list and return the new list document back to the user (which includes the id)
     // The list information (fields) will be passed in via the JSON request body
     let title = req.body.title;
+    let category=req.body.category;
 
     let newList = new List({
         title,
+        category,
         _userId: req.user_id
     });
     newList.save().then((listDoc) => {

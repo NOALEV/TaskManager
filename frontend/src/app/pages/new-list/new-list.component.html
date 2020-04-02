@@ -3,11 +3,25 @@
         <h1 class="title">
             Create a new list
           </h1>
-          <input #listTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter list name...">
+          <input #listTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter list name..."> 
+          <h1>
+           Choose category:
+          </h1>
+          <select #listCategoryInput >  
+           
+            <option label="Shopping">Shopping List</option>  
+            <option label="Home ">Home List</option>  
+            <option label="Work">Work List</option>  
+            <option label="Appointments">Appointments List</option> 
+            <option label="Other">Other List</option>  
+      >  
+        </select> 
+
+
           <br><br>
           <div class="buttons is-right">
             <button class="button is-medium" routerLink="/">Cancel</button>
-            <button class="button is-primary has-text-white is-medium" (click)="createList(listTitleInput.value)">Create</button>
+            <button class="button is-primary has-text-white is-medium" (click)="createList(listTitleInput.value,listCategoryInput.value)">Create</button>
           </div>
         </div>
     </div>

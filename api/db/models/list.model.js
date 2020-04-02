@@ -7,6 +7,12 @@ const ListSchema = new mongoose.Schema({
         minlength: 1,
         trim: true
     },
+    category:
+    {
+        type: String,
+        require: true
+    
+    },
     // with auth
     _userId: {
         type: mongoose.Types.ObjectId,
