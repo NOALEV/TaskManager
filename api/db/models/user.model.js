@@ -21,9 +21,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 8
     },
-    admin:{
-        type:Boolean,
-        required:false,
+    city: {
+        type: String,
+        required: true,
+        minlength: 4
     },
     sessions: [{
         token: {
