@@ -1,5 +1,7 @@
 <div class="centered-content">
+
   <div class="task-manager-container">
+    
 
     <div class="sidebar has-background-white">
       <h1 class="title has-text-primary">
@@ -83,5 +85,16 @@
 
     </div>
 
+
+    <button class="button is-primary has-text-white" *ngIf="getIsAdmin()" routerLink='/admin'>hello admin</button>
+  
+
+    
+    <button class="button is-success has-text-white"(click)="logout()">
+      Logout
+    </button>
+
+  
   </div>
+  
 </div>

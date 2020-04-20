@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
 import { WebRequestService } from './web-request.service';
 import { Task } from './models/task.model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from './auth.service';
+import { HttpResponse } from '@angular/common/http';
+import { tap, shareReplay } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
+  http: any;
+  webService: any;
 
-  constructor(private webReqService: WebRequestService) { }
+  constructor(private webReqService: WebRequestService,private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
 
   getLists() {
@@ -51,4 +58,35 @@ export class TaskService {
       completed: !task.completed
     });
   }
+  
+  getNewAccessToken() {
+    return this.http.get(`${this.webService.ROOT_URL}/users/me/access-token`, {
+      headers: {
+        'x-refresh-token': this.getRefreshToken(),
+        '_id': this.getUserId()
+      },
+      observe: 'response'
+    }).pipe(
+      tap((res: HttpResponse<any>) => {
+        this.setAccessToken(res.headers.get('x-access-token'));
+      })
+    )
+  }
+  getAccessToken() {
+    return localStorage.getItem('x-access-token');
+  }
+
+  getRefreshToken() {
+    return localStorage.getItem('x-refresh-token');
+  }
+
+  getUserId() {
+    return localStorage.getItem('user-id');
+  }
+ 
+
+  setAccessToken(accessToken: string) {
+    localStorage.setItem('x-access-token', accessToken)
+  }
 }
+  

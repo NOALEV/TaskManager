@@ -1,0 +1,18 @@
+
+              <div class="centered-content">
+
+                <div class="task-manager-container">
+                  
+              
+                  <div class="sidebar has-background-white">
+                    <h1 class="title has-text-primary">
+                     users
+                    </h1>
+              
+                    <div class="list-menu">
+                      <a class="lits-menu-item" *ngFor="let user of users" [routerLink]="['/users', user._id]" routerLinkActive="is-active">
+                        <p>{{ }}</p>
+                      </a>
+              
+                    </div>
+              

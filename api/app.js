@@ -73,6 +73,7 @@ let verifySession = (req, res, next) => {
         req.user_id = user._id;
         req.userObject = user;
         req.refreshToken = refreshToken;
+        req.user_admin=user.admin;
 
         let isSessionValid = false;
 
@@ -340,6 +341,7 @@ app.post('/users/login', (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
+
     User.findByCredentials(email, password).then((user) => {
         return user.createSession().then((refreshToken) => {
             // Session created successfully - refreshToken returned.
@@ -375,6 +377,21 @@ app.get('/users/me/access-token', verifySession, (req, res) => {
     });
 })
 
+//Get Users
+
+app.get('/user', authenticate, (req, res) => {
+
+    res.send(users);
+})
+
+app.get('/users/:userId/users', authenticate, (req, res) => {
+    // We want to return all tasks that belong to a specific list (specified by listId)
+    User.find({
+        _userId: req.params.userId
+    }).then((users) => {
+        res.send(users);
+    })
+});
 
 
 /* HELPER METHODS */
