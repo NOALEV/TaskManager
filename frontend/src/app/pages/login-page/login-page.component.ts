@@ -9,7 +9,7 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-
+  text ="";
   constructor(private authService: AuthService, private router: Router) { }
 
 

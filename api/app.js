@@ -378,22 +378,40 @@ app.get('/users/me/access-token', verifySession, (req, res) => {
     });
 })
 
-//Get Users
 
-app.get('/user', authenticate, (req, res) => {
+//Get  all the Users
+app.get('/users', authenticate, (req, res) => {
+User.find({
 
+}).then((users)=>{
     res.send(users);
+}
+)
 })
+//delete user
+app.delete('/users/:id', authenticate, (req, res) => {
+    // We want to delete the specifiedt id (document with id in the URL)
+    User.findOneAndRemove({
+        _id: req.params.id,
+    }).then((removedUserDoc) => {
+        res.send(removedUsertDoc);
+    }).catch((e) => {
+        res.status(400).send(e);
+    });
+});
+//edit user
+app.patch('/users/:id/', authenticate, (req, res) => {
+    // We want to update the specified list (list document with id in the URL) with the new values specified in the JSON body of the request
+    User.findOneAndUpdate({ _id: req.params.id}, {
+        $set: req.body
+    }).then(() => {
+        res.send({ 'message': 'updated successfully'});
 
-app.get('/users/:userId/users', authenticate, (req, res) => {
-    // We want to return all tasks that belong to a specific list (specified by listId)
-    User.find({
-        _userId: req.params.userId
-    }).then((users) => {
-        res.send(users);
-    })
+    });
+    
 });
 
+<<<<<<< HEAD
 app.get('/currencies', authenticate , (req , res)=>{
     Currency.find()
     .then(data=>{
@@ -401,6 +419,12 @@ app.get('/currencies', authenticate , (req , res)=>{
     })
     .catch(err=>console.dir(err));
 });
+=======
+    
+
+
+
+>>>>>>> f9c1aa940c8856245220f0e56695939e0c6c35e7
 
 /* HELPER METHODS */
 let deleteTasksFromList = (_listId) => {

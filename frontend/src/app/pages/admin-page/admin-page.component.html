@@ -1,6 +1,48 @@
+<div class="centered-content">
 
-              <div class="centered-content">
+  <div class="task-manager-container">
+    
+    <button routerLink="/" class="circle-add-button button is-primary">back</button>
+    <div class="sidebar has-background-white">
+      <h1 class="title has-text-primary">
+        Users
+      </h1>
 
+      <table class="list-menu">
+        <tr><th>Email</th><th>City</th><th>Number of login </th></tr>
+        <tr *ngFor="let user of users" >
+          <td>{{user.email}}</td>
+          <td>{{user.city}}</td>
+          <td>{{user.__v}}</td>
+          <a
+          (click)="onDeleteUserClick(user._id)" 
+          class="dropdown-item has-text-danger">
+            Delete
+          </a>
+          
+
+          <a [routerLink]="['/edit-user', user._id]" class="dropdown-item has-text-danger" >
+            Edit
+          </a>
+          
+
+        </tr>
+      </table>
+      <div class="dropdown is-hoverable is-right">
+        
+      
+  
+          
+        </div>
+      </div>
+    </div>
+      
+
+    
+
+    </div>
+
+<<<<<<< HEAD
                 <div class="task-manager-container">
                   
               
@@ -16,3 +58,5 @@
               
                     </div>
               
+=======
+>>>>>>> f9c1aa940c8856245220f0e56695939e0c6c35e7

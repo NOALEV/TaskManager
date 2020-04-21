@@ -9,6 +9,11 @@ const bcrypt = require('bcryptjs');
 const jwtSecret = "51778657246321226641fsdklafjasdkljfsklfjd7148924065";
 
 const UserSchema = new mongoose.Schema({
+    userName: {
+        type: String,
+        required: true,
+        minlength: 3
+    },
     email: {
         type: String,
         required: true,
@@ -26,6 +31,12 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 4
     },
+    isAdmin:{
+        type:String,
+        default: 'false',
+        require:true
+        
+    },
     sessions: [{
         token: {
             type: String,
@@ -34,8 +45,10 @@ const UserSchema = new mongoose.Schema({
         expiresAt: {
             type: Number,
             required: true
-        }
+        },
+       
     }]
+ 
 });
 
 

@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './auth.service';
 import { HttpResponse } from '@angular/common/http';
 import { tap, shareReplay } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 
 @Injectable({

@@ -13,10 +13,16 @@ export class UserService {
   http: any;
   webService: any;
   constructor(private webReqService: WebRequestService,private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
-  getUser() {
-    return this.webReqService.get('user');
+  getUsers() {
+    return this.webReqService.get('users');
   }
-  getUsers(userId: string) {
-    return this.webReqService.get(`users/${userId}/users`);
+  deleteUser(id: string) {
+    return this.webReqService.delete(`users/${id}`);
   }
+  updateUser(id: string, city: string) {
+    // We want to send a web request to update a list
+    return this.webReqService.patch(`users/${id}`, { city });
+
+  }
+ 
 }

@@ -36,8 +36,9 @@ export class WebRequestService {
         observe: 'response'
       });
   }
-  signup(email: string, password: string, city:string) {
+  signup(userName:string, email: string, password: string, city:string) {
     return this.http.post(`${this.ROOT_URL}/users`, {
+      userName,
       email,
       password,
       city

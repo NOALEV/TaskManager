@@ -5,6 +5,7 @@ import { Task } from 'src/app/models/task.model';
 import { List } from 'src/app/models/list.model';
 import { AuthService } from 'src/app/auth.service';
 import {User} from 'src/app/models/user.model';
+import{UserService} from 'src/app/user.service';
 
 
 @Component({
@@ -17,10 +18,12 @@ export class TaskViewComponent implements OnInit {
   lists: List[];
   tasks: Task[];
   user: User;
+  
+
 
   selectedListId: string;
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
+  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router,private authService: AuthService,private userService: UserService) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -40,6 +43,7 @@ export class TaskViewComponent implements OnInit {
       this.lists = lists;
 
     })
+  
    
   
   }
@@ -77,7 +81,11 @@ export class TaskViewComponent implements OnInit {
     localStorage.removeItem('x-refresh-token');
   }
   getIsAdmin(){
-    return localStorage.getItem('admin') == 'true';
+    return localStorage.getItem('isAdmin') == 'true';
+  }
+  getUser(){
+    return localStorage.getItem('userName') ;
+    
   }
 
 }

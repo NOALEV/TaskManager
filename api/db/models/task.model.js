@@ -12,10 +12,12 @@ const TaskSchema = new mongoose.Schema({
         required: true
     },
     time: {
-        type: String,
+        type:String,
         required: true,
-        minlength: 1,
-        trim: true
+        minlength:1,
+        maxlength:10,
+       
+     
     
      },
     completed: {

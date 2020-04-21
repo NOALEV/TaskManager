@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http"
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskViewComponent } from './pages/task-view/task-view.component';
@@ -12,9 +12,13 @@ import { WebReqInterceptor } from './web-req.interceptor';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { EditListComponent } from './pages/edit-list/edit-list.component';
 import { EditTaskComponent } from './pages/edit-task/edit-task.component';
-import { UserPageComponent } from './pages/user-page/user-page.component';
+
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+<<<<<<< HEAD
 import { CurrenciesComponent } from './pages/currencies/currencies.component';
+=======
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
+>>>>>>> f9c1aa940c8856245220f0e56695939e0c6c35e7
 
 
 @NgModule({
@@ -27,14 +31,21 @@ import { CurrenciesComponent } from './pages/currencies/currencies.component';
     SignupPageComponent,
     EditListComponent,
     EditTaskComponent,
+<<<<<<< HEAD
     UserPageComponent,
     AdminPageComponent,
     CurrenciesComponent
+=======
+    
+    AdminPageComponent,
+    EditUserComponent
+>>>>>>> f9c1aa940c8856245220f0e56695939e0c6c35e7
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
 
     
   ],
