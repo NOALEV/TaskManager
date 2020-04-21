@@ -1,4 +1,3 @@
-const puppeteer = require('puppeteer');
 const rp = require('request-promise');
 const $ = require('cheerio');
 const url = 'https://en.wikipedia.org/wiki/List_of_circulating_currencies';

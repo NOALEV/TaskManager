@@ -411,7 +411,7 @@ app.patch('/users/:id/', authenticate, (req, res) => {
     
 });
 
-<<<<<<< HEAD
+
 app.get('/currencies', authenticate , (req , res)=>{
     Currency.find()
     .then(data=>{
@@ -419,12 +419,6 @@ app.get('/currencies', authenticate , (req , res)=>{
     })
     .catch(err=>console.dir(err));
 });
-=======
-    
-
-
-
->>>>>>> f9c1aa940c8856245220f0e56695939e0c6c35e7
 
 /* HELPER METHODS */
 let deleteTasksFromList = (_listId) => {
