@@ -15,18 +15,65 @@ import{UserService} from 'src/app/user.service';
 })
 export class AdminPageComponent implements OnInit {
   users: User[];
+  selectedUserId: string;
+  isAdmin;
  
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe((users: User[]) => {
-      this.users = users;
-      console.log(users);
-  })
-}
-}
- 
-  
-  
+    if(this.getIsAdmin()=='false')
+    this.router.navigate(['/lists']);
 
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+     console.log(users)
+  })
+  
+    this.route.params.subscribe(
+      (params: Params) => {
+        if (params.userId) {
+          this.selectedUserId = params.userId;
+        
+        }
+      }
+    )
+ 
+    
+  
+  
+}
+
+getIsAdmin(){
+  return localStorage.getItem('isAdmin') ;
+}
+IsNotAdmin(){
+return localStorage.getItem('isAdmin');
+
+}
+
+
+
+
+
+
+
+onDeleteUserClick(userId : string){
+  
+  this.userService.deleteUser(userId).subscribe((res: any) => {
+    
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    
+  })
+   
+  },
+  error => {
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+  })
+  }  
+  )
+ 
+}
+}

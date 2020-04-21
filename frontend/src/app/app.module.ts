@@ -12,8 +12,9 @@ import { WebReqInterceptor } from './web-req.interceptor';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { EditListComponent } from './pages/edit-list/edit-list.component';
 import { EditTaskComponent } from './pages/edit-task/edit-task.component';
-import { UserPageComponent } from './pages/user-page/user-page.component';
+
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
 
 
 @NgModule({
@@ -26,8 +27,9 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
     SignupPageComponent,
     EditListComponent,
     EditTaskComponent,
-    UserPageComponent,
-    AdminPageComponent
+    
+    AdminPageComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

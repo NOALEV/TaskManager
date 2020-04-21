@@ -77,7 +77,7 @@ export class TaskViewComponent implements OnInit {
     localStorage.removeItem('x-refresh-token');
   }
   getIsAdmin(){
-    return localStorage.getItem('admin') == 'true';
+    return localStorage.getItem('isAdmin') == 'true';
   }
 
 }

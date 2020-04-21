@@ -26,6 +26,12 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 4
     },
+    isAdmin:{
+        type:String,
+        default: 'false',
+        require:true
+        
+    },
     sessions: [{
         token: {
             type: String,
@@ -34,8 +40,10 @@ const UserSchema = new mongoose.Schema({
         expiresAt: {
             type: Number,
             required: true
-        }
+        },
+       
     }]
+ 
 });
 
 

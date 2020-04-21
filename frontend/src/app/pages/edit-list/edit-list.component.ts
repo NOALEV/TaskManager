@@ -26,6 +26,7 @@ export class EditListComponent implements OnInit {
   updateList(title: string) {
     this.taskService.updateList(this.listId, title).subscribe(() => {
       this.router.navigate(['/lists', this.listId]);
+      
     })
   }
 

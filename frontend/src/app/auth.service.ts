@@ -18,7 +18,7 @@ export class AuthService {
       tap((res: HttpResponse<any>) => {
         // the auth tokens will be in the header of this response
         console.log(res.body);
-        this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'), res.body.admin);
+        this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'), res.body.isAdmin);
         console.log("LOGGED IN!");
       })
     )
@@ -30,7 +30,7 @@ export class AuthService {
       shareReplay(),
       tap((res: HttpResponse<any>) => {
         // the auth tokens will be in the header of this response
-        this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'),res.body.admin);
+        this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'),res.body.isAdmin);
         console.log("Successfully signed up and now logged in!");
       })
     )
@@ -62,9 +62,9 @@ export class AuthService {
     localStorage.setItem('x-access-token', accessToken)
   }
   
-  private setSession(userId: string, accessToken: string, refreshToken: string,admin: string) {
+  private setSession(userId: string, accessToken: string, refreshToken: string,isAdmin: string) {
     localStorage.setItem('user-id', userId);
-    localStorage.setItem('admin', admin);
+    localStorage.setItem('isAdmin', isAdmin);
     
     localStorage.setItem('x-access-token', accessToken);
     localStorage.setItem('x-refresh-token', refreshToken);
