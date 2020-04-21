@@ -6,9 +6,11 @@ const { mongoose } = require('./db/mongoose');
 const bodyParser = require('body-parser');
 
 // Load in the mongoose models
-const { List, Task, User } = require('./db/models');
+const { List, Task, User, Currency } = require('./db/models');
 
 const jwt = require('jsonwebtoken');
+
+const CurrenciesHelper = require('./helpers/currencies');
 
 
 /* MIDDLEWARE  */
@@ -30,7 +32,6 @@ app.use(function (req, res, next) {
 
     next();
 });
-
 
 // check whether the request has a valid JWT access token
 let authenticate = (req, res, next) => {
@@ -393,6 +394,13 @@ app.get('/users/:userId/users', authenticate, (req, res) => {
     })
 });
 
+app.get('/currencies', authenticate , (req , res)=>{
+    Currency.find()
+    .then(data=>{
+        res.send(data);
+    })
+    .catch(err=>console.dir(err));
+});
 
 /* HELPER METHODS */
 let deleteTasksFromList = (_listId) => {
@@ -402,9 +410,34 @@ let deleteTasksFromList = (_listId) => {
         console.log("Tasks from " + _listId + " were deleted!");
     })
 }
-
-
-
+//START CURRENCIES WEB SCRAPPER
+const checkForCurrencies = ()=>{
+    Currency.find()
+    .then(res=>{
+        if(res.length = 0 ){
+            CurrenciesHelper.getData();
+        }
+    })
+    .catch(err=>{
+        if(err.code === 26){
+            CurrenciesHelper.getData();
+        }else{
+            console.log(err);
+        }
+    });
+}
+const getNewCurrencies = ()=>{
+    mongoose.connection.dropCollection('currencies',((err , res)=>{
+        if(res) return CurrenciesHelper.getData();
+        if(err.code === 26){
+            CurrenciesHelper.getData();
+        }else{
+            console.log(err);
+        } 
+    }));
+}
+checkForCurrencies();
+//END CURRENCIES WEB SCRAPPER
 
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");

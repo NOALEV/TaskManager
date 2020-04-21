@@ -14,6 +14,7 @@ import { EditListComponent } from './pages/edit-list/edit-list.component';
 import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { CurrenciesComponent } from './pages/currencies/currencies.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
     EditListComponent,
     EditTaskComponent,
     UserPageComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    CurrenciesComponent
   ],
   imports: [
     BrowserModule,

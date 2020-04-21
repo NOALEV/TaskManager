@@ -11,7 +11,7 @@
               
                     <div class="list-menu">
                       <a class="lits-menu-item" *ngFor="let user of users" [routerLink]="['/users', user._id]" routerLinkActive="is-active">
-                        <p>{{ }}</p>
+                        <p>{{ user.name}}</p>
                       </a>
               
                     </div>
