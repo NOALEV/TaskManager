@@ -14,12 +14,10 @@ import { EditListComponent } from './pages/edit-list/edit-list.component';
 import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
-<<<<<<< HEAD
-import { CurrenciesComponent } from './pages/currencies/currencies.component';
-=======
-import { EditUserComponent } from './pages/edit-user/edit-user.component';
->>>>>>> f9c1aa940c8856245220f0e56695939e0c6c35e7
 
+import { CurrenciesComponent } from './pages/currencies/currencies.component';
+
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -31,15 +29,10 @@ import { EditUserComponent } from './pages/edit-user/edit-user.component';
     SignupPageComponent,
     EditListComponent,
     EditTaskComponent,
-<<<<<<< HEAD
-    UserPageComponent,
     AdminPageComponent,
-    CurrenciesComponent
-=======
-    
+    CurrenciesComponent,
     AdminPageComponent,
     EditUserComponent
->>>>>>> f9c1aa940c8856245220f0e56695939e0c6c35e7
   ],
   imports: [
     BrowserModule,
