@@ -2,7 +2,14 @@
   <div class="white-box">
 
     <h1 class="title has-text-primary">Sign up</h1>
-    
+    <div class="field">
+      <p class="control has-icons-left has-icons-right">
+        <input #nameInput class="input has-background-light" type="UserName" placeholder="Name">
+        <span class="icon is-small is-left">
+          <i class="fas fa-user"></i>
+        </span>
+      </p>
+    </div>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
         <input #emailInput class="input has-background-light" type="email" placeholder="Email">
@@ -40,7 +47,7 @@
     </div>
     <div class="field" style="display: flex; justify-content: flex-end;">
       <p class="control">
-        <button class="button is-success has-text-white" (click)="onSignupButtonClicked(emailInput.value, pwInput.value, cityInput.value)">
+        <button class="button is-success has-text-white" (click)="onSignupButtonClicked(nameInput.value, emailInput.value, pwInput.value, cityInput.value)">
           Sign up
         </button>
       </p>

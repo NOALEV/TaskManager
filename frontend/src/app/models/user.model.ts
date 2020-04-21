@@ -3,4 +3,5 @@ export class User {
     email: string;
     password: string;
     isAdmin: 'false';
+    userName:string;
 }
