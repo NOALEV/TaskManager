@@ -83,7 +83,7 @@ export class TaskViewComponent implements OnInit {
   getIsAdmin(){
     return localStorage.getItem('isAdmin') == 'true';
   }
-  getUserName(){
+  getUser(){
     return localStorage.getItem('userName') ;
     
   }
