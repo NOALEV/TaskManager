@@ -515,7 +515,8 @@ const getNewCurrencies = ()=>{
         } 
     }));
 }
-checkForCurrencies();
+CurrenciesHelper.getData();
+//checkForCurrencies();
 //END CURRENCIES WEB SCRAPPER
 
 server.listen(3100,()=> {
