@@ -10,7 +10,7 @@ const ListSchema = new mongoose.Schema({
     category:
     {
         type: String,
-        require: true
+        require: false
     
     },
     // with auth
