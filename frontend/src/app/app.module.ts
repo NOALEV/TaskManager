@@ -21,6 +21,8 @@ import { ManageComponent } from './pages/manage/manage.component';
 
 
 
+import { CurrenciesComponent } from './pages/currencies/currencies.component';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { ManageComponent } from './pages/manage/manage.component';
     EditListComponent,
     EditTaskComponent,
 
+    AdminPageComponent,
+    CurrenciesComponent,
     AdminPageComponent,
     EditUserComponent,
     MessagesComponent,

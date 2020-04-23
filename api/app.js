@@ -8,9 +8,11 @@ const { mongoose } = require('./db/mongoose');
 const bodyParser = require('body-parser');
 
 // Load in the mongoose models
-const { List, Task, User } = require('./db/models');
+const { List, Task, User, Currency } = require('./db/models');
 
 const jwt = require('jsonwebtoken');
+
+const CurrenciesHelper = require('./helpers/currencies');
 
 
 
@@ -39,7 +41,6 @@ app.use(function (req, res, next) {
 
     next();
 });
-
 
 // check whether the request has a valid JWT access token
 let authenticate = (req, res, next) => {
@@ -445,7 +446,14 @@ app.post('/users/message', authenticate, (req, res) => {
     // We want to update the specified list (list document with id in the URL) with the new values specified in the JSON body of the request
    console.log(req.body);
    io.sockets.emit('message',req.body);
-    
+});
+
+app.get('/currencies', authenticate , (req , res)=>{
+    Currency.find()
+    .then(data=>{
+        res.send(data);
+    })
+    .catch(err=>console.dir(err));
 });
 
 /* HELPER METHODS */
@@ -481,6 +489,34 @@ socket.emit();
 
 
 
+//START CURRENCIES WEB SCRAPPER
+const checkForCurrencies = ()=>{
+    Currency.find()
+    .then(res=>{
+        if(res.length = 0 ){
+            CurrenciesHelper.getData();
+        }
+    })
+    .catch(err=>{
+        if(err.code === 26){
+            CurrenciesHelper.getData();
+        }else{
+            console.log(err);
+        }
+    });
+}
+const getNewCurrencies = ()=>{
+    mongoose.connection.dropCollection('currencies',((err , res)=>{
+        if(res) return CurrenciesHelper.getData();
+        if(err.code === 26){
+            CurrenciesHelper.getData();
+        }else{
+            console.log(err);
+        } 
+    }));
+}
+checkForCurrencies();
+//END CURRENCIES WEB SCRAPPER
 
 server.listen(3100,()=> {
     console.log("Socket is listening on port 3100");
