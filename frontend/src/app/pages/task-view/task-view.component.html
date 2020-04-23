@@ -1,12 +1,9 @@
 <div class="centered-content">
-
   <div class="task-manager-container">
- 
     <div class="sidebar has-background-white">
       <h1 class="title has-text-primary">
         Lists
       </h1>
-
       <div class="list-menu">
         <a class="list-menu-item" *ngFor="let list of lists" [routerLink]="['/lists', list._id]" routerLinkActive="is-active">
           <p>{{ list.title }}</p>
@@ -22,7 +19,7 @@
       <div *ngIf="tasks">
         <div class="top-bar">
           <h1 class="title has-text-primary">
-            Tasks
+            {{ getUser()}} Tasks
           </h1>
           <div class="dropdown is-hoverable is-right">
             <div class="dropdown-trigger">
@@ -44,6 +41,7 @@
             </div>
           </div>
         </div>
+       
 
         <!-- Task Elements -->
         <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{ 'completed': task.completed }">
@@ -83,18 +81,13 @@
       </div>
 
     </div>
-
-    <h1>Hello {{ getUser()}}</h1>
-    <button class="button is-primary has-text-white" *ngIf="getIsAdmin()" routerLink='/admin'> admin</button>
-  
-    
-    
-    <button class="button is-success has-text-white"(click)="logout()">
-      Logout
+    <button class="logout-button button is-primary is-hovered"(click)="logout()">
+       Logout
     </button>
-  
-
-  
+   
+    <app-manage></app-manage>
+    <app-messages *ngIf=!getIsAdmin()></app-messages>
+   
   </div>
-  
+ 
 </div>

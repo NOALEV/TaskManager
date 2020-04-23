@@ -16,8 +16,11 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mongoose": "^5.9.2",
-    "parser": "^0.1.4"
+    "parser": "^0.1.4",
+    "socket.io-server": "^1.0.0-b"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "socket.io": "^2.3.0"
+  },
   "description": ""
 }

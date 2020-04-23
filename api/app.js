@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const server=require('http').createServer(app);
+const io=require('socket.io')(server);
 
 const { mongoose } = require('./db/mongoose');
 
@@ -11,6 +13,12 @@ const { List, Task, User } = require('./db/models');
 const jwt = require('jsonwebtoken');
 
 
+
+
+
+
+
+
 /* MIDDLEWARE  */
 
 // Load middleware
@@ -19,7 +27,8 @@ app.use(bodyParser.json());
 
 // CORS HEADERS MIDDLEWARE
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials",'true');
+    res.header("Access-Control-Allow-Origin", 'http://localhost:4200');
     res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token, x-refresh-token, _id");
 
@@ -309,7 +318,9 @@ app.post('/users', (req, res) => {
     // User sign up
 
     let body = req.body;
+    body.isConnected=true;
     let newUser = new User(body);
+    
 
     newUser.save().then(() => {
         return newUser.createSession();
@@ -327,6 +338,7 @@ app.post('/users', (req, res) => {
             .header('x-refresh-token', authTokens.refreshToken)
             .header('x-access-token', authTokens.accessToken)
             .send(newUser);
+            getNumOfUsers();
     }).catch((e) => {
         res.status(400).send(e);
     })
@@ -357,6 +369,7 @@ app.post('/users/login', (req, res) => {
                 .header('x-refresh-token', authTokens.refreshToken)
                 .header('x-access-token', authTokens.accessToken)
                 .send(user);
+                getNumOfUsers();
         })
     }).catch((e) => {
         res.status(400).send(e);
@@ -405,15 +418,35 @@ app.patch('/users/:id/', authenticate, (req, res) => {
         $set: req.body
     }).then(() => {
         res.send({ 'message': 'updated successfully'});
+        getNumOfUsers();
 
     });
     
 });
+app.get('/users/count', authenticate, (req, res) => {
+    User.aggregate(
+        [
+            {
+                $match:{isConnected:true}
+            },
+            {
+                $count:'connected'
+            }
+        ]
+    ).then((count)=>{
+        res.send(count);
+    }
+    )
 
+    });
+
+//Message
+app.post('/users/message', authenticate, (req, res) => {
+    // We want to update the specified list (list document with id in the URL) with the new values specified in the JSON body of the request
+   console.log(req.body);
+   io.sockets.emit('message',req.body);
     
-
-
-
+});
 
 /* HELPER METHODS */
 let deleteTasksFromList = (_listId) => {
@@ -423,9 +456,35 @@ let deleteTasksFromList = (_listId) => {
         console.log("Tasks from " + _listId + " were deleted!");
     })
 }
+let getNumOfUsers=()=>{
+    User.aggregate(
+        [
+            {
+                $match:{isConnected:true}
+            },
+            {
+                $count:'connected'
+            }
+        ]
+    ).then((count)=>{
+        io.sockets.emit('event',count);
+        console.log(count);
+    }
+    )
+}
+//socket
+/*io.on('connection',function(socket)
+{
+console.log("User connected")
+socket.emit();
+});*/
 
 
 
+
+server.listen(3100,()=> {
+    console.log("Socket is listening on port 3100");
+})
 
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");

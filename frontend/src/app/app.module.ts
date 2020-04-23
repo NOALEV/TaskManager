@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http"
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { TaskViewComponent } from './pages/task-view/task-view.component';
 import { NewListComponent } from './pages/new-list/new-list.component';
 import { NewTaskComponent } from './pages/new-task/new-task.component';
@@ -15,6 +14,12 @@ import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
+import { AppComponent } from './app.component';
+import { MessagesComponent } from './pages/messages/messages.component';
+import { ManageComponent } from './pages/manage/manage.component';
+
+
+
 
 
 @NgModule({
@@ -27,9 +32,15 @@ import { EditUserComponent } from './pages/edit-user/edit-user.component';
     SignupPageComponent,
     EditListComponent,
     EditTaskComponent,
-    
+
     AdminPageComponent,
-    EditUserComponent
+    EditUserComponent,
+    MessagesComponent,
+    ManageComponent,
+  
+    
+  
+   
   ],
   imports: [
     BrowserModule,

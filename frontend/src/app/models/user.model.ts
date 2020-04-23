@@ -4,4 +4,5 @@ export class User {
     password: string;
     isAdmin: 'false';
     userName:string;
+    isConnected:boolean
 }

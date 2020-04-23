@@ -6,6 +6,7 @@ import { List } from 'src/app/models/list.model';
 import { AuthService } from 'src/app/auth.service';
 import {User} from 'src/app/models/user.model';
 import{UserService} from 'src/app/user.service';
+import { WebSocketService } from 'src/app/web-socket.service';
 
 
 @Component({
@@ -18,14 +19,19 @@ export class TaskViewComponent implements OnInit {
   lists: List[];
   tasks: Task[];
   user: User;
+  users: User[];
   
-
-
   selectedListId: string;
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router,private authService: AuthService,private userService: UserService) { }
+  constructor(private webSocketService:WebSocketService,private authService:AuthService,private taskService: TaskService, private route: ActivatedRoute, private router: Router,private userService: UserService) { }
 
   ngOnInit() {
+    
+    this.webSocketService.listen('event').subscribe((data)=>{
+console.log(data)
+    })
+    
+
     this.route.params.subscribe(
       (params: Params) => {
         if (params.listId) {
@@ -43,10 +49,13 @@ export class TaskViewComponent implements OnInit {
       this.lists = lists;
 
     })
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+
   
-   
-  
-  }
+  })
+}
+
 
   onTaskClick(task: Task) {
     // we want to set the task to completed
@@ -71,9 +80,15 @@ export class TaskViewComponent implements OnInit {
     })
   }
   logout() {
-    this.removeSession();
-
-    this.router.navigate(['/login']);
+    
+    this.userService.logout(localStorage.getItem('user-id')).subscribe((res: any) => {
+      this.removeSession();
+      this.router.navigate(['/login']);
+    });
+    
+   
+    
+    
   }
   private removeSession() {
     localStorage.removeItem('user-id');
