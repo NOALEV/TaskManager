@@ -26,6 +26,18 @@
       </table>
 
       <h1 class="title has-text-primary">
+        Users By Cities
+      </h1>
+      <table class="list-menu">
+        <tr><th>City</th><th>Number of users</th></tr>
+        <tr *ngFor="let uc of usersByCities" >
+          <td>{{uc._id}}</td>
+          <td>{{uc.total}}</td>
+        </tr>
+      </table>
+
+
+      <h1 class="title has-text-primary">
         <i class="far fa-comment-alt"></i> Messages <span class="item has-text-danger"></span>
       </h1>
 

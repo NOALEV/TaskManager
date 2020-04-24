@@ -10,6 +10,7 @@ import { UserService } from 'src/app/user.service';
 import { WebSocketService } from 'src/app/web-socket.service';
 import { MessagesService } from 'src/app/messages.service';
 import { Messages } from 'src/app/models/messages.model';
+import { UsersByCities } from 'src/app/models/usersByCities.model';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { Messages } from 'src/app/models/messages.model';
 })
 export class AdminPageComponent implements OnInit {
   users: User[];
+  usersByCities: UsersByCities[];
   selectedUserId: string;
   selectedMessageId:string;
   isAdmin;
@@ -33,6 +35,11 @@ export class AdminPageComponent implements OnInit {
     this.userService.getUsers().subscribe((users: User[]) => {
       this.users = users;
       console.log(users)
+    })
+
+    this.userService.getUsersByCities().subscribe((usersByCities: UsersByCities[]) => {
+      this.usersByCities = usersByCities;
+      console.log(usersByCities)
     })
 
     this.messagesService.getMessages().subscribe((messages:Messages[])=>{
