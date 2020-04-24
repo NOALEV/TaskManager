@@ -1,3 +1,30 @@
-<ul>
-    <li *ngFor="let item of list">{{item.currency}} , {{item.symbol}} , {{item.isoCode}}</li>
-</ul>
+
+<div class="centered-content">
+    <button routerLink="/" class="circle-back-button button is-primary"> <i class="fas fa-arrow-left"></i> &nbsp; back</button>
+   
+    <div class="task-manager-container">
+      <div class="sidebar has-background-white">
+        
+        <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
+          <tr><th>Country name</th><th>Currency</th><th>Currency symbol</th><th>Iso code</th></tr>
+          <tr *ngFor="let item of list" >
+            <td>{{item.country}} </td>
+            <td>{{item.currency}} </td>
+            <td>{{item.symbol}} </td>
+            <td>{{item.isoCode}}</td>
+           
+          </tr>
+        </table>
+  
+        
+  
+        
+        </div>
+       
+  
+      </div>
+      
+        
+      </div>
+  
+  

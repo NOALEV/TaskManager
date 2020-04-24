@@ -1,8 +1,18 @@
 @import '../../../main-styles.scss';
-
-.task-manager-container {
-    display: flex;
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
     width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  .task-manager-container {
+    display: flex;
+ 
     height: 100%;
     max-width: 1000px;
     max-height: 680px;
@@ -11,12 +21,10 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-
-    width: 250px;
+   
+    height: 32350px;
     background: white;
-
     padding: 42px;
-
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
@@ -42,17 +50,11 @@
     }
 
 }
-.currencies{
-    position: absolute;
-    top:2rem;
-    left: 2rem;
-   
-}
 
 .list-menu {
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
+    display: table-column;
+    flex-direction: row-reverse;
+    margin-top: 11px;
     flex-grow: 1; 
 
     .list-menu-item {
@@ -110,25 +112,16 @@
     }
 
 
-    .task-text {
-        display: flex;
-        flex-grow: 1;
-    }
-
-    .task-buttons {
-        transition: opacity 0.2s, transform 0.2s;
-        opacity: 0;
-        transform: scale(0.85);
-    }
+  
 }
 
-.circle-add-button {
-    position: absolute;
-    bottom: 35px;
-    right: 35px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
+.circle-back-button {
+    position: fixed;
+    top: 14px;
+    left: 20px;
+    height: 44px;
+    width: 74px;
+   
     
 }
 
@@ -136,20 +129,4 @@
     font-size: 20px;
     color: #777;
     text-align: center;
-}
-.logout-button
-{
-    position: fixed;
-    top: 14px;
-    right: 20px;
-    height: 44px;
-    width: 74px;
-}
-.currency-button
-{
-    position: fixed;
-    top: 14px;
-    left: 20px;
-    height: 44px;
-    width: 74px;
 }
