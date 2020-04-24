@@ -20,6 +20,9 @@ export class UserService {
   getUsersCount() {
     return this.webReqService.get('users/count');
   }
+  getUsersByCities() {
+    return this.webReqService.get('usersByCities');  
+  }
   deleteUser(id: string) {
     return this.webReqService.delete(`users/${id}`);
   }
