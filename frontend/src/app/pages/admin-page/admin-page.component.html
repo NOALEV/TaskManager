@@ -7,11 +7,13 @@
         <i class="fas fa-user"></i> Users <span class="item has-text-danger"> now connected:<b>{{numOfConnected.connected}}</b></span>
       </h1>
       <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
-        <tr><th>Email</th><th>User name</th><th>Number of login </th><th></th></tr>
+        <tr><th>Email</th><th>User name</th><th>City</th><th>Number of login </th><th></th></tr>
         <tr *ngFor="let user of users" >
           <td>{{user.email}}</td>
           <td>{{user.userName}}</td>
+          <td>{{user.city}}</td>
           <td>{{user.__v}}</td>
+         
           <td >
            <a (click)="onDeleteUserClick(user._id)"> <i class="fas fa-trash" ></i></a>
            &nbsp; 
