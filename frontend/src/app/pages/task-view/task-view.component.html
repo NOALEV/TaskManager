@@ -1,3 +1,4 @@
+<app-messages *ngIf=!getIsAdmin()></app-messages>
 <div class="centered-content">
   <div class="currencies">
     
@@ -90,7 +91,6 @@
     </button>
    
     <app-manage></app-manage>
-    <app-messages *ngIf=!getIsAdmin()></app-messages>
    
   </div>
  

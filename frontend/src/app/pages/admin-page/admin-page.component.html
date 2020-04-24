@@ -23,8 +23,26 @@
         </tr>
       </table>
 
+      <h1 class="title has-text-primary">
+        <i class="far fa-comment-alt"></i> Messages <span class="item has-text-danger"></span>
+      </h1>
 
-      <table  >
+      <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
+        <tr><th>Title</th> <th></th></tr>
+        <tr *ngFor="let message of messages" >
+          <td>{{message.title}}</td>
+          <td >
+           <a (click)="onDeleteMessageClick(message._id)"> <i class="fas fa-trash" ></i></a>
+           &nbsp; 
+            <a [routerLink]="['/edit-message',message._id]">
+              <i class="fas fa-edit"></i> 
+            </a>
+          </td>
+        </tr>
+      </table>
+
+
+      <table>
         <tr>
           <td>
         <h2>Post a message to users: </h2>

@@ -5,9 +5,11 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Task } from 'src/app/models/task.model';
 import { List } from 'src/app/models/list.model';
 import { AuthService } from 'src/app/auth.service';
-import{UserService} from 'src/app/user.service';
+import { UserService } from 'src/app/user.service';
 
 import { WebSocketService } from 'src/app/web-socket.service';
+import { MessagesService } from 'src/app/messages.service';
+import { Messages } from 'src/app/models/messages.model';
 
 
 @Component({
@@ -18,54 +20,78 @@ import { WebSocketService } from 'src/app/web-socket.service';
 export class AdminPageComponent implements OnInit {
   users: User[];
   selectedUserId: string;
+  selectedMessageId:string;
   isAdmin;
-  NumOfConnected: string[] ;
-  aa:[]
-  constructor(private webSocketService:WebSocketService,private userService: UserService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
-
+  NumOfConnected: string[];
+  messages: Messages[];
+  constructor(private messagesService: MessagesService, private webSocketService: WebSocketService, private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    if(this.getIsAdmin()=='false'){
-    this.router.navigate(['/lists']);
+    if (this.getIsAdmin() == 'false') {
+      this.router.navigate(['/lists']);
     }
     this.userService.getUsers().subscribe((users: User[]) => {
       this.users = users;
-     console.log(users)
-  })
-  //numofuser
-  this.getUsersCount();
-    this.webSocketService.listen('event').subscribe((data:[])=>{
-      console.log(data);
-    this.NumOfConnected=data;
-   
+      console.log(users)
     })
-  
+
+    this.messagesService.getMessages().subscribe((messages:Messages[])=>{
+this.messages=messages;
+    })
+    //numofuser
+    this.getUsersCount();
+    this.webSocketService.listen('event').subscribe((data: []) => {
+      console.log(data);
+      this.NumOfConnected = data;
+
+    })
+
     this.route.params.subscribe(
       (params: Params) => {
         if (params.userId) {
           this.selectedUserId = params.userId;
-        
+
         }
       }
     )
- 
-    
-  
-  
-}
+    this.route.params.subscribe(
+      (params: Params) => {
+        if (params.messageId) {
+          this.selectedMessageId = params.messageId;
 
-getIsAdmin(){
-  return localStorage.getItem('isAdmin') ;
-}
-IsNotAdmin(){
-return localStorage.getItem('isAdmin');
+        }
+      }
+    )
 
-}
-getUsersCount()
-  {
-    this.userService.getUsersCount().subscribe((data:[])=>{
+
+    this.webSocketService.listen('message').subscribe((data: any) => {
+      this.getMessages();
+    });
+
+    this.getMessages();
+
+
+
+  }
+  getMessages() {
+    this.messagesService.getMessages().subscribe((messages: Messages[]) => {
+      this.messages = messages;
+    });
+
+
+  }
+
+  getIsAdmin() {
+    return localStorage.getItem('isAdmin');
+  }
+  IsNotAdmin() {
+    return localStorage.getItem('isAdmin');
+
+  }
+  getUsersCount() {
+    this.userService.getUsersCount().subscribe((data: []) => {
       console.log(data);
-    this.NumOfConnected=data;
+      this.NumOfConnected = data;
     });
   }
 
@@ -76,30 +102,48 @@ getUsersCount()
 
 
 
-onDeleteUserClick(userId : string){
-  
-  this.userService.deleteUser(userId).subscribe((res: any) => {
-    
-    this.userService.getUsers().subscribe((users: User[]) => {
-      this.users = users;
-    
-  })
-   
-  },
-  error => {
-    this.userService.getUsers().subscribe((users: User[]) => {
-      this.users = users;
-  })
-  }  
-  )
- 
-}
+  onDeleteUserClick(userId: string) {
 
+    this.userService.deleteUser(userId).subscribe((res: any) => {
 
-sendMessage(message: string) {
-  
-  this.userService.sendMessage(message).subscribe(() => {
-    
-  })
-}
+      this.userService.getUsers().subscribe((users: User[]) => {
+        this.users = users;
+
+      })
+
+    },
+      error => {
+        this.userService.getUsers().subscribe((users: User[]) => {
+          this.users = users;
+        })
+      }
+    )
+
+  }
+  onDeleteMessageClick(messageId: string) {
+
+    this.messagesService.deleteMessage(messageId).subscribe((res: any) => {
+
+      this.messagesService.getMessages().subscribe((messages: Messages[]) => {
+        this.messages = messages;
+
+      })
+
+    },
+      error => {
+        this.messagesService.getMessages().subscribe((messages: Messages[]) => {
+          this.messages = messages;
+        })
+      }
+    )
+  }
+
+  sendMessage(title: string) {
+
+    this.messagesService.sendMessage(title).subscribe(() => {
+      this.messagesService.getMessages().subscribe((messages: Messages[]) => {
+        this.messages = messages;
+      })
+    })
+  }
 }

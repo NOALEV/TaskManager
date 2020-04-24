@@ -25,7 +25,6 @@ export class EditUserComponent implements OnInit {
     this.userService.updateUser(this.userId, userName).subscribe(() => {
       this.router.navigate(['/users', this.userId]);
      
-      
     })
   }
 

@@ -33,9 +33,5 @@ export class UserService {
     {
       return this.webReqService.patch(`users/${id}`, { isConnected:false });
     }
-    sendMessage(message:string)
-    {
-      return this.webReqService.post(`users/message`, {message})
-    }
- 
+    
 }

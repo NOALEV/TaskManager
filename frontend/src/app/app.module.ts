@@ -18,10 +18,8 @@ import { AppComponent } from './app.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { ManageComponent } from './pages/manage/manage.component';
 
-
-
-
 import { CurrenciesComponent } from './pages/currencies/currencies.component';
+import { EditMessageComponent } from './pages/edit-message/edit-message.component';
 
 
 @NgModule({
@@ -41,6 +39,7 @@ import { CurrenciesComponent } from './pages/currencies/currencies.component';
     EditUserComponent,
     MessagesComponent,
     ManageComponent,
+    EditMessageComponent,
   
     
   
