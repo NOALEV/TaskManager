@@ -26,6 +26,7 @@ export class AdminPageComponent implements OnInit {
   isAdmin;
   NumOfConnected: string[];
   messages: Messages[];
+  title: string;
   constructor(private messagesService: MessagesService, private webSocketService: WebSocketService, private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -145,11 +146,11 @@ this.messages=messages;
     )
   }
 
-  sendMessage(title: string) {
-
-    this.messagesService.sendMessage(title).subscribe(() => {
+  sendMessage() {
+    this.messagesService.sendMessage(this.title).subscribe(() => {
       this.messagesService.getMessages().subscribe((messages: Messages[]) => {
         this.messages = messages;
+        this.title='';
       })
     })
   }

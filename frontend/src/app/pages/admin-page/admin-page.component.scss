@@ -22,7 +22,7 @@ table {
     display: flex;
     flex-direction: column;
    
-    height: 1000px;
+    height: 2000px;
     background: white;
     padding: 42px;
     border-top-left-radius: 8px;
@@ -52,7 +52,7 @@ table {
 }
 
 .list-menu {
-    display: table-column;
+    
     flex-direction: row-reverse;
     margin-top: 11px;
     flex-grow: 1; 
@@ -75,7 +75,7 @@ table {
         &.is-active {
             background-color: #cff8ef;
             color: $dark-green;
-        }
+        }    
     }
 }
 
@@ -151,4 +151,7 @@ margin-right: 30px;
 .h2{
     font-size:121%;
     font-weight: normal;
+}
+.title{
+    padding-top: inherit;
 }

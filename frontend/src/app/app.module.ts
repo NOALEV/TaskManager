@@ -25,6 +25,7 @@ import { CurrenciesFilterPipe } from './pages/currencies/currencies-filter.pipe'
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

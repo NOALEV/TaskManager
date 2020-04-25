@@ -26,7 +26,7 @@
       </table>
 
       <h1 class="title has-text-primary">
-        Users By Cities
+        <i class="fas fa-user"></i>  Users By Cities
       </h1>
       <table class="list-menu">
         <tr><th>City</th><th>Number of users</th></tr>
@@ -55,15 +55,14 @@
         </tr>
       </table>
 
-
       <table>
         <tr>
           <td>
         <h2>Post a message to users: </h2>
           <div class="field">
             <div class="control">
-              <textarea #textInput class="textarea is-primary" placeholder="Send message"></textarea>
-              <button class="button is-success " (click)="sendMessage(textInput.value)" style="float: right;">Send</button>
+              <input type="text" class="textarea is-primary" placeholder="Send message" [(ngModel)]="title" />
+              <button class="button is-success " (click)="sendMessage()" style="float: right;">Send</button>
             </div>
           </div> 
          
