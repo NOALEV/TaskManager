@@ -13,6 +13,7 @@ import { MessagesComponent } from './pages/messages/messages.component';
 import { EditMessageComponent } from './pages/edit-message/edit-message.component';
 
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/lists', pathMatch: 'full' },
   { path: 'new-list', component: NewListComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
   { path: 'lists', component: TaskViewComponent },
+
   { path: 'lists/:listId', component: TaskViewComponent },
   { path: 'lists/:listId/new-task', component: NewTaskComponent },
   { path: 'lists/:listId/edit-task/:taskId', component: EditTaskComponent },

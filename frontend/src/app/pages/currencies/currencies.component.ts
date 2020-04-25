@@ -8,6 +8,7 @@ import { WebRequestService } from '../../web-request.service';
 export class CurrenciesComponent implements OnInit {
 
   constructor(private webService: WebRequestService) { }
+  searchStr: string;
   public list:any = [];
   ngOnInit(): void {
     this.getData();

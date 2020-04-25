@@ -20,6 +20,9 @@ import { ManageComponent } from './pages/manage/manage.component';
 
 import { CurrenciesComponent } from './pages/currencies/currencies.component';
 import { EditMessageComponent } from './pages/edit-message/edit-message.component';
+import { CurrenciesFilterPipe } from './pages/currencies/currencies-filter.pipe';
+
+
 
 
 @NgModule({
@@ -40,7 +43,7 @@ import { EditMessageComponent } from './pages/edit-message/edit-message.componen
     MessagesComponent,
     ManageComponent,
     EditMessageComponent,
-  
+    CurrenciesFilterPipe  
     
   
    
@@ -49,7 +52,8 @@ import { EditMessageComponent } from './pages/edit-message/edit-message.componen
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+   
 
     
   ],
