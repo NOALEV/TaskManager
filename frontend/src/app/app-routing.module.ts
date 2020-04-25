@@ -11,6 +11,7 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { EditMessageComponent } from './pages/edit-message/edit-message.component';
+import { CurrenciesComponent } from './pages/currencies/currencies.component';
 
 
 
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'users/:userId', component: AdminPageComponent },
   { path: 'edit-message/:messageId', component: EditMessageComponent },
   { path: 'messages/:messageId', component: AdminPageComponent },
+  { path: 'currencies', component: CurrenciesComponent }
 ];
 
 @NgModule({

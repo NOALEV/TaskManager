@@ -440,6 +440,19 @@ app.get('/users/count', authenticate, (req, res) => {
 
 });
 
+app.get('/usersByCities', authenticate, (req, res) => {
+    User.aggregate([
+        { '$group': { 
+            '_id': '$city' , 
+            'total': { '$sum': 1 } 
+        } },
+        { '$sort': { 'total': -1 } } 
+    ], function(err, results) {
+        console.log(results);
+        res.json(results);
+    });
+})
+
 
 
 app.get('/currencies', authenticate, (req, res) => {
@@ -583,5 +596,3 @@ server.listen(3100, () => {
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");
 })
-
-
