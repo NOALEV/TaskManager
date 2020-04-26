@@ -3,4 +3,5 @@ export class Currencies {
     country:string;
     currency:string;
     symbol:String;
+    isoCode:string
 }

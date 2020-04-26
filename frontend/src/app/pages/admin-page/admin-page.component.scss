@@ -19,10 +19,9 @@ table {
 }
 
 .sidebar {
-    display: flex;
+    display: table;
     flex-direction: column;
    
-    height: 2000px;
     background: white;
     padding: 42px;
     border-top-left-radius: 8px;

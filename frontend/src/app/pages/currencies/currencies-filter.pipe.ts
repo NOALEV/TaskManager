@@ -15,7 +15,7 @@ export class CurrenciesFilterPipe implements PipeTransform {
     searchTerm = searchTerm.toLowerCase();
     const matches = [];
     currencies.forEach(currency => {
-      const currenciesStr = currency.country.toLowerCase() + currency.currency.toLowerCase() + currency.symbol;
+      const currenciesStr = currency.country.toLowerCase() + currency.currency.toLowerCase() + currency.isoCode.toLowerCase();
       const splitedStr = currenciesStr.split(/(?:,| )+/);
       const ac = new AhoCorasick(splitedStr);
       const result = ac.search(searchTerm);
