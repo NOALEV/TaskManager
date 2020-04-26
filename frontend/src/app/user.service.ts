@@ -23,6 +23,11 @@ export class UserService {
   getUsersByCities() {
     return this.webReqService.get('usersByCities');  
   }
+  
+  getListCategoriesByUsers() {
+    return this.webReqService.get('listCategoriesByUsers');  
+  }
+  
   deleteUser(id: string) {
     return this.webReqService.delete(`users/${id}`);
   }
