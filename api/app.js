@@ -453,7 +453,22 @@ app.get('/usersByCities', authenticate, (req, res) => {
     });
 })
 
+app.get('/listCategoriesByUsers', authenticate, (req, res) => {
 
+    var o = {};
+    o.map = function () {
+        emit(this.category, 1)
+    };
+    o.reduce = function (k, vals) {
+        return vals.length
+    };
+
+    List.mapReduce(o, function (err, results) {
+        if(err) throw err;
+        console.log(results)
+        res.json(results.results);
+    });
+});
 
 app.get('/currencies', authenticate, (req, res) => {
     Currency.find()
