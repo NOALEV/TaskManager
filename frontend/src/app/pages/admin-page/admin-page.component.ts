@@ -28,6 +28,7 @@ export class AdminPageComponent implements OnInit {
   NumOfConnected: string[];
   messages: Messages[];
   title: string;
+  selectedTab='users';
   constructor(private messagesService: MessagesService, private webSocketService: WebSocketService, private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -109,7 +110,9 @@ export class AdminPageComponent implements OnInit {
     });
   }
 
-
+  selectTab(name:string){
+    this.selectedTab=name;
+  }
 
 
 

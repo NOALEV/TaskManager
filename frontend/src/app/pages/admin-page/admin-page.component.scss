@@ -1,4 +1,7 @@
 @import '../../../main-styles.scss';
+.hidden{
+    display: none;
+}
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -21,7 +24,7 @@ table {
 .sidebar {
     display: table;
     flex-direction: column;
-   
+   width: 800px;
     background: white;
     padding: 42px;
     border-top-left-radius: 8px;
@@ -153,4 +156,5 @@ margin-right: 30px;
 }
 .title{
     padding-top: inherit;
+    width: 800px;
 }

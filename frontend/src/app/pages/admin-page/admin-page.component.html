@@ -3,6 +3,15 @@
  
   <div class="task-manager-container">
     <div class="sidebar has-background-white">
+      <div class="tabs">
+        <ul>
+          <li [ngClass]="{'is-active':selectedTab==='users'}" (click)="selectTab('users')"><a>Users</a></li>
+          <li [ngClass]="{'is-active':selectedTab==='city'}" (click)="selectTab('city')"><a>City</a></li>
+          <li [ngClass]="{'is-active':selectedTab==='category'}" (click)="selectTab('category')"><a>Category</a></li>
+ <li [ngClass]="{'is-active':selectedTab==='message'}" (click)="selectTab('message')" ><a>Message</a></li>
+        </ul>
+      </div> 
+      <div [ngClass]="{'hidden':selectedTab!=='users'}">
       <h1 *ngFor="let numOfConnected of NumOfConnected" class="title has-text-primary">
         <i class="fas fa-address-card"></i> Users <span class="item has-text-danger"> now connected:<b>{{numOfConnected.connected}}</b></span>
       </h1>
@@ -24,29 +33,32 @@
           </td>
         </tr>
       </table>
-
+    </div>
+    <div [ngClass]="{'hidden':selectedTab!=='city'}">
       <h1 class="title has-text-primary">
         <i class="fas fa-user"></i>  Users By Cities
       </h1>
-      <table class="list-menu">
+      <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
         <tr><th>City</th><th>Number of users</th></tr>
         <tr *ngFor="let uc of usersByCities" >
           <td>{{uc._id}}</td>
           <td>{{uc.total}}</td>
         </tr>
       </table>
-
+    </div>
+    <div [ngClass]="{'hidden':selectedTab!=='category'}">
       <h1 class="title has-text-primary">
-        List Categories By Users
+        <i class="fas fa-user"></i>  List Categories By Users
       </h1>
-      <table class="list-menu">
+      <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
         <tr><th>Category</th><th>Number of users</th></tr>
         <tr *ngFor="let cu of listCategoriesByUsers" >
           <td>{{cu._id}}</td>
           <td>{{cu.value}}</td>
         </tr>
       </table>
-
+    </div>
+    <div [ngClass]="{'hidden':selectedTab!=='message'}">
       <h1 class="title has-text-primary">
         <i class="far fa-comment-alt"></i> Messages <span class="item has-text-danger"></span>
       </h1>
@@ -86,4 +98,4 @@
     
       
     </div>
-
+ 
