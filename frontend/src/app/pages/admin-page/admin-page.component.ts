@@ -21,6 +21,7 @@ import { UsersByCities } from 'src/app/models/usersByCities.model';
 export class AdminPageComponent implements OnInit {
   users: User[];
   usersByCities: UsersByCities[];
+  listCategoriesByUsers: any[];
   selectedUserId: string;
   selectedMessageId:string;
   isAdmin;
@@ -43,8 +44,13 @@ export class AdminPageComponent implements OnInit {
       console.log(usersByCities)
     })
 
+    this.userService.getListCategoriesByUsers().subscribe((listCategoriesByUsers: any[]) => {
+      this.listCategoriesByUsers = listCategoriesByUsers;
+      console.log(listCategoriesByUsers);
+    })
+  
     this.messagesService.getMessages().subscribe((messages:Messages[])=>{
-this.messages=messages;
+      this.messages=messages;
     })
     //numofuser
     this.getUsersCount();
