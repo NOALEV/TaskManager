@@ -9,10 +9,6 @@ import { EditListComponent } from './pages/edit-list/edit-list.component';
 import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
-import { MessagesComponent } from './pages/messages/messages.component';
-import { EditMessageComponent } from './pages/edit-message/edit-message.component';
-import { CurrenciesComponent } from './pages/currencies/currencies.component';
-
 
 
 const routes: Routes = [
@@ -22,16 +18,14 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
   { path: 'lists', component: TaskViewComponent },
-
   { path: 'lists/:listId', component: TaskViewComponent },
   { path: 'lists/:listId/new-task', component: NewTaskComponent },
   { path: 'lists/:listId/edit-task/:taskId', component: EditTaskComponent },
   { path: 'admin', component: AdminPageComponent },
   { path: 'edit-user/:userId', component: EditUserComponent },
   { path: 'users/:userId', component: AdminPageComponent },
-  { path: 'edit-message/:messageId', component: EditMessageComponent },
-  { path: 'messages/:messageId', component: AdminPageComponent },
-  { path: 'currencies', component: CurrenciesComponent }
+  
+  
 ];
 
 @NgModule({

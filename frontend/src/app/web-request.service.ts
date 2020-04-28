@@ -12,8 +12,8 @@ export class WebRequestService {
     this.ROOT_URL = 'http://localhost:3000';
   }
 
-  get(uri: string) {
-    return this.http.get(`${this.ROOT_URL}/${uri}`);
+  get(uri: string, params?) {
+    return this.http.get(`${this.ROOT_URL}/${uri}`, { params: {...params} });
   }
 
   post(uri: string, payload: Object) {
@@ -36,12 +36,14 @@ export class WebRequestService {
         observe: 'response'
       });
   }
-  signup(userName:string, email: string, password: string, city:string) {
+  signup(userName: string, email: string, password: string, city: string, lat: number, lng: number) {
     return this.http.post(`${this.ROOT_URL}/users`, {
       userName,
       email,
       password,
-      city
+      city,
+      lat,
+      lng
     }, {
         observe: 'response'
       });

@@ -1,101 +1,62 @@
 <div class="centered-content">
-  <button routerLink="/" class="circle-back-button button is-primary"> <i class="fas fa-arrow-left"></i> &nbsp; Back</button>
- 
+
   <div class="task-manager-container">
+    
+    <button routerLink="/" class="circle-add-button button is-primary">back</button>
     <div class="sidebar has-background-white">
-      <div class="tabs">
-        <ul>
-          <li [ngClass]="{'is-active':selectedTab==='users'}" (click)="selectTab('users')"><a>Users</a></li>
-          <li [ngClass]="{'is-active':selectedTab==='city'}" (click)="selectTab('city')"><a>City</a></li>
-          <li [ngClass]="{'is-active':selectedTab==='category'}" (click)="selectTab('category')"><a>Category</a></li>
- <li [ngClass]="{'is-active':selectedTab==='message'}" (click)="selectTab('message')" ><a>Message</a></li>
-        </ul>
-      </div> 
-      <div [ngClass]="{'hidden':selectedTab!=='users'}">
-      <h1 *ngFor="let numOfConnected of NumOfConnected" class="title has-text-primary">
-        <i class="fas fa-address-card"></i> Users <span class="item has-text-danger"> now connected:<b>{{numOfConnected.connected}}</b></span>
+      <h1 class="title has-text-primary">
+        Users
       </h1>
-      <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
-        <tr><th>Email</th><th>User name</th><th>City</th><th>Number of login </th><th></th></tr>
+
+      <table class="list-menu">
+        <tr><th>Email</th><th>City</th><th>Number of login </th></tr>
         <tr *ngFor="let user of users" >
           <td>{{user.email}}</td>
-          <td>{{user.userName}}</td>
           <td>{{user.city}}</td>
           <td>{{user.__v}}</td>
-         
-          <td >
-           <a (click)="onDeleteUserClick(user._id)"> <i class="fas fa-trash" ></i></a>
-           &nbsp; 
-            <a [routerLink]="['/edit-user', user._id]">
-              <i class="fas fa-edit"></i> 
-            </a>
-           
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div [ngClass]="{'hidden':selectedTab!=='city'}">
-      <h1 class="title has-text-primary">
-        <i class="fas fa-user"></i>  Users By Cities
-      </h1>
-      <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
-        <tr><th>City</th><th>Number of users</th></tr>
-        <tr *ngFor="let uc of usersByCities" >
-          <td>{{uc._id}}</td>
-          <td>{{uc.total}}</td>
-        </tr>
-      </table>
-    </div>
-    <div [ngClass]="{'hidden':selectedTab!=='category'}">
-      <h1 class="title has-text-primary">
-       <i class="fas fa-user"></i>  List Categories By Users
-      </h1>
-      <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
-        <tr><th>Category</th><th>Number of users</th></tr>
-        <tr *ngFor="let cu of listCategoriesByUsers" >
-          <td>{{cu._id}}</td>
-          <td>{{cu.value}}</td>
-        </tr>
-      </table>
-    </div>
-    <div [ngClass]="{'hidden':selectedTab!=='message'}">
-      <h1 class="title has-text-primary">
-        <i class="far fa-comment-alt"></i> Messages <span class="item has-text-danger"></span>
-      </h1>
+          <a
+          (click)="onDeleteUserClick(user._id)" 
+          class="dropdown-item has-text-danger">
+            Delete
+          </a>
+          
 
-      <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
-        <tr><th>Title</th> <th></th></tr>
-        <tr *ngFor="let message of messages" >
-          <td>{{message.title}}</td>
-          <td >
-           <a (click)="onDeleteMessageClick(message._id)"> <i class="fas fa-trash" ></i></a>
-           &nbsp; 
-            <a [routerLink]="['/edit-message',message._id]">
-              <i class="fas fa-edit"></i> 
-            </a>
-          </td>
+          <a [routerLink]="['/edit-user', user._id]" class="dropdown-item has-text-danger" >
+            Edit
+          </a>
+          
+
         </tr>
       </table>
-
-      <table>
-        <tr>
-          <td>
-        <h2>Post a message to users: </h2>
-          <div class="field">
-            <div class="control">
-              <input type="text" class="textarea is-primary" placeholder="Send message" [(ngModel)]="title" />
-              <button class="button is-success " (click)="sendMessage()" style="float: right;">Send</button>
-            </div>
-          </div> 
-         
-        </td>
-</tr>
-        </table>
-      </div>
-     
-
-    </div>
-    
+      <div class="dropdown is-hoverable is-right">
+        
       
+  
+          
+        </div>
+      </div>
     </div>
- 
+      
+
+    
+
+    </div>
+
+<<<<<<< HEAD
+                <div class="task-manager-container">
+                  
+              
+                  <div class="sidebar has-background-white">
+                    <h1 class="title has-text-primary">
+                     users
+                    </h1>
+              
+                    <div class="list-menu">
+                      <a class="lits-menu-item" *ngFor="let user of users" [routerLink]="['/users', user._id]" routerLinkActive="is-active">
+                        <p>{{ user.name}}</p>
+                      </a>
+              
+                    </div>
+              
+=======
+>>>>>>> f9c1aa940c8856245220f0e56695939e0c6c35e7

@@ -10,16 +10,19 @@ const ListSchema = new mongoose.Schema({
     category:
     {
         type: String,
-        require: false
+        require: true
     
     },
     // with auth
     _userId: {
         type: mongoose.Types.ObjectId,
         required: true
-    }
+    },
+}, { timestamps: true })
 
-})
+const List = mongoose.model('List', ListSchema);
+
+module.exports = { List }
 
 const List = mongoose.model('List', ListSchema);
 

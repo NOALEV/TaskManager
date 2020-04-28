@@ -16,11 +16,7 @@ const TaskSchema = new mongoose.Schema({
         required: true,
         minlength:1,
         maxlength:10,
-       
-     
-    
      },
-
     completed: {
         type: Boolean,
         default: false

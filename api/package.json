@@ -19,11 +19,8 @@
     "mongoose": "^5.9.2",
     "parser": "^0.1.4",
     "request": "^2.88.2",
-    "request-promise": "^4.2.5",
-    "socket.io-server": "^1.0.0-b"
+    "request-promise": "^4.2.5"
   },
-  "devDependencies": {
-    "socket.io": "^2.3.0"
-  },
+  "devDependencies": {},
   "description": ""
 }

@@ -6,10 +6,10 @@ import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-  
+  text ="";
   constructor(private authService: AuthService, private router: Router) { }
 
 

@@ -1,19 +1,31 @@
-<app-messages *ngIf=!getIsAdmin()></app-messages>
 <div class="centered-content">
   <div class="currencies">
-    
+    <app-currencies></app-currencies>
   </div>
-
   <div class="task-manager-container">
+ 
     <div class="sidebar has-background-white">
       <h1 class="title has-text-primary">
         Lists
       </h1>
+      <div class="filters-row-container">
+        Filters:
+        <input class="input" #freeText placeholder="Type free text..." type="text" />
+        <input placeholse="sss" #taskTimeInput class="input has-background-light is-medium" type="date" min="2018-01-01" max="2022-12-31" >
+        <select #listCategoryInput class="input has-background-light" >  
+            <option label="" value="">All Categories</option>  
+            <option label="Shopping">Shopping List</option>  
+            <option label="Home ">Home List</option>  
+            <option label="Work">Work List</option>  
+            <option label="Appointments">Appointments List</option> 
+            <option label="Other">Other List</option>  
+        </select> 
+        <button style="width: 100%" class="button is-primary" (click)="onListsFilter(freeText.value, taskTimeInput.value, listCategoryInput.value)">Search</button>
+      </div>
       <div class="list-menu">
         <a class="list-menu-item" *ngFor="let list of lists" [routerLink]="['/lists', list._id]" routerLinkActive="is-active">
           <p>{{ list.title }}</p>
         </a>
-
       </div>
 
       <button class="button is-primary has-text-white" routerLink="/new-list">+ New List</button>
@@ -24,7 +36,7 @@
       <div *ngIf="tasks">
         <div class="top-bar">
           <h1 class="title has-text-primary">
-            {{ getUser()}} Tasks
+            Tasks
           </h1>
           <div class="dropdown is-hoverable is-right">
             <div class="dropdown-trigger">
@@ -46,7 +58,16 @@
             </div>
           </div>
         </div>
-       
+
+        <div class="filters-row-container">
+          Filters:
+          <div class="filters-row">
+            <input class="input" #freeText placeholder="Type free text..." type="text" />
+            <input placeholse="sss" #taskTimeInput class="input has-background-light is-medium" type="date" min="2018-01-01" max="2022-12-31" >
+            <label>Only pending<input type="checkbox" #onlyPending /></label>
+            <button class="button is-primary" (click)="onTasksFilter(freeText.value, taskTimeInput.value, onlyPending.checked)">Search</button>
+          </div>
+        </div>
 
         <!-- Task Elements -->
         <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{ 'completed': task.completed }">
@@ -86,14 +107,39 @@
       </div>
 
     </div>
-    <button class="logout-button button is-primary is-hovered"(click)="logout()">
-       Logout
+
+    <h1>Hello {{ getUser()}}</h1>
+    <button class="button is-primary has-text-white" *ngIf="getIsAdmin()" routerLink='/admin'> admin</button>
+  
+    
+    
+    <button class="button is-success has-text-white"(click)="logout()">
+      Logout
     </button>
-    
-    
-    <app-manage></app-manage>
-    
-    <button class="currency-button button is-primary is-hovered" routerLink="/currencies">Currencies</button>
+  
+
+  
   </div>
- 
+  
+</div>
+<div style="text-align: center;">
+  <app-bar-chart title="Tasks Summary" [data]="tasksSummary"></app-bar-chart>
+</div>
+<div class="centered-content" style="height: 520px;">
+  <div class="task-manager-container">
+    <div class="task-list-container has-background-light">
+      <h1>Brunches On Map</h1>
+      <google-map
+        height="400px"
+        width="916px"
+        [center]="center"
+        [zoom]="zoom"
+      >
+        <map-marker #marker
+          *ngFor="let brunchLocation of brunchesLocations"
+          [position]="brunchLocation"
+        ></map-marker>
+      </google-map>
+    </div>
+  </div>
 </div>

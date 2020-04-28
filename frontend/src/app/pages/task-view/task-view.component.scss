@@ -46,7 +46,6 @@
     position: absolute;
     top:2rem;
     left: 2rem;
-   
 }
 
 .list-menu {
@@ -132,26 +131,23 @@
     
 }
 
+.filters-row {
+    color: #777;
+    display: flex;
+    font-size: 11px;
+    button {
+        margin-left: 10px;
+    }
+}
+.filters-row-container {
+    font-size: 20px;
+    color: #777;
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
 .empty-state-text {
     font-size: 20px;
     color: #777;
     text-align: center;
-}
-.logout-button
-{
-    position: fixed;
-    top: 11px;
-    right: 20px;
-    height: 44px;
-    width: 74px;
-}
-.currency-button
-{
-
-    position: fixed;
-    top: 60px;
-    right:20px;
-    height: 44px;
-    width: 74px;
-   
 }
