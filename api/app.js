@@ -14,11 +14,7 @@ const jwt = require('jsonwebtoken');
 
 const CurrenciesHelper = require('./helpers/currencies');
 
-
-
-
-
-
+const HyperLogLog = require('hyperloglog-lite');
 
 
 /* MIDDLEWARE  */
@@ -552,10 +548,27 @@ app.get('/messages', authenticate, (req, res) => {
     ).catch((e) => {
         res.send(e);
     });
-
 })
 
-
+// Count distinct words in messages
+app.get('/numDistinctWordsInMessages', authenticate, (req, res) => {
+    const hll = HyperLogLog(12);
+    Messages.find({
+    }).then((messages) => {
+        for(let msg of messages) {
+          const words = msg.title.split(" ");
+          for(let word of words) {
+            hll.add(HyperLogLog.hash(word));
+          }
+        }
+        const numDistinctWordsObj  = { "numDistinctWords" : hll.count() }
+        console.log(numDistinctWordsObj);
+        res.send(numDistinctWordsObj);
+    }
+    ).catch((e) => {
+        res.send(e);
+    });
+})
 
 //delete message
 app.delete('/messages/:id', authenticate, (req, res) => {
