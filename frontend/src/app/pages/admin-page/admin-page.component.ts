@@ -29,6 +29,8 @@ export class AdminPageComponent implements OnInit {
   messages: Messages[];
   title: string;
   selectedTab='users';
+  numDistinctWordsObj: any;
+  
   constructor(private messagesService: MessagesService, private webSocketService: WebSocketService, private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -84,17 +86,20 @@ export class AdminPageComponent implements OnInit {
     });
 
     this.getMessages();
-
-
-
+    this.getNumDistinctWordsInMessages();
   }
   getMessages() {
     this.messagesService.getMessages().subscribe((messages: Messages[]) => {
       this.messages = messages;
     });
-
-
   }
+
+  getNumDistinctWordsInMessages() {
+    this.messagesService.getNumDistinctWordsInMessages().subscribe((numDistinctWordsObj: any) => {
+      this.numDistinctWordsObj = numDistinctWordsObj;
+    });
+  }
+
 
   getIsAdmin() {
     return localStorage.getItem('isAdmin');
