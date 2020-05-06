@@ -4,7 +4,6 @@ const url = 'https://en.wikipedia.org/wiki/List_of_circulating_currencies';
 const {Currency} = require('../db/models/currency.model');
 const Currencies = {
     getData(){
-        Currency.collection.remove()
         rp(url)
             .then(data=>{
                 $('table.wikitable tbody tr',data).each((index ,element)=>{
