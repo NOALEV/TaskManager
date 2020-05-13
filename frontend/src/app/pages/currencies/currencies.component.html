@@ -1,32 +1,32 @@
 
 <div class="centered-content">
-    <button routerLink="/" class="circle-back-button button is-primary"> <i class="fas fa-arrow-left"></i> &nbsp; Back</button>
-   
-    <div class="task-manager-container">
-      <div class="sidebar">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchStr" />
-        </div>
-        <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
-          <tr><th>Country name</th><th>Currency</th><th>Currency symbol</th><th>Iso code</th></tr>
-          <tr *ngFor="let item of list | CurrenciesFilter:searchStr" >
-            <td>{{item.country}} </td>
-            <td>{{item.currency}} </td>
-            <td>{{item.symbol}} </td>
-            <td>{{item.isoCode}}</td>
-           
-          </tr>
-        </table>
-  
-        
-  
-        
-        </div>
-       
-  
+  <button routerLink="/" class="circle-back-button button is-primary"> <i class="fas fa-arrow-left"></i> &nbsp; Back</button>
+ 
+  <div class="task-manager-container">
+    <div class="sidebar">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchStr" />
       </div>
+      <table class="table is-fullwidth" style="max-height:400px ;overflow-y: auto;">
+        <tr><th>Country name</th><th>Currency</th><th>Currency symbol</th><th>Iso code</th></tr>
+        <tr *ngFor="let item of list | CurrenciesFilter:searchStr" >
+          <td>{{item.country}} </td>
+          <td>{{item.currency}} </td>
+          <td>{{item.symbol}} </td>
+          <td>{{item.isoCode}}</td>
+         
+        </tr>
+      </table>
+
       
-        
+
+      
       </div>
-  
+     
+
+    </div>
+    
+      
+    </div>
+
   

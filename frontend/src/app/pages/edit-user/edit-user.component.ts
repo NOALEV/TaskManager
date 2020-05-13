@@ -21,10 +21,11 @@ export class EditUserComponent implements OnInit {
     )
   }
 
-  updateUser(userName: string) {
-    this.userService.updateUser(this.userId, userName).subscribe(() => {
+  updateUser(city: string) {
+    this.userService.updateUser(this.userId, city).subscribe(() => {
       this.router.navigate(['/users', this.userId]);
      
+      
     })
   }
 

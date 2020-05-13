@@ -26,15 +26,25 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 8
     },
+
     isConnected:
     {
         type:Boolean,
         required:true,
     },
+
     city: {
         type: String,
         required: true,
         minlength: 4
+    },
+    lat: {
+        type: Number,
+        required: true,
+    },
+    lng: {
+        type: Number,
+        required: true,
     },
     isAdmin:{
         type:String,

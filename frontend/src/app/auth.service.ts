@@ -18,22 +18,22 @@ export class AuthService {
       tap((res: HttpResponse<any>) => {
         // the auth tokens will be in the header of this response
         console.log(res.body);
-        this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'), res.body.isAdmin,res.body.userName);
-        console.log("LOGGED IN!");
+        this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'), res.body.isAdmin, res.body.userName);
+        console.log('LOGGED IN!');
       })
-    )
+    );
   }
 
 
-  signup(userName: string, email: string, password: string, city:string) {
-    return this.webService.signup(userName, email, password, city).pipe(
+  signup(userName: string, email: string, password: string, city: string, lat: number, lng: number) {
+    return this.webService.signup(userName, email, password, city, lat, lng).pipe(
       shareReplay(),
       tap((res: HttpResponse<any>) => {
         // the auth tokens will be in the header of this response
-        this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'),res.body.isAdmin,res.body.userName);
-        console.log("Successfully signed up and now logged in!");
+        this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'), res.body.isAdmin, res.body.userName);
+        console.log('Successfully signed up and now logged in!');
       })
-    )
+    );
   }
 
 
@@ -55,22 +55,22 @@ export class AuthService {
   getUserId() {
     return localStorage.getItem('user-id');
   }
- 
- 
+
+
 
   setAccessToken(accessToken: string) {
-    localStorage.setItem('x-access-token', accessToken)
+    localStorage.setItem('x-access-token', accessToken);
   }
-  
-  private setSession(userId: string, accessToken: string, refreshToken: string,isAdmin: string,userName:string) {
+
+  private setSession(userId: string, accessToken: string, refreshToken: string, isAdmin: string, userName: string) {
     localStorage.setItem('user-id', userId);
     localStorage.setItem('isAdmin', isAdmin);
     localStorage.setItem('userName', userName);
     localStorage.setItem('x-access-token', accessToken);
     localStorage.setItem('x-refresh-token', refreshToken);
-    
+
   }
-  
+
 
   private removeSession() {
     localStorage.removeItem('user-id');
@@ -82,13 +82,13 @@ export class AuthService {
     return this.http.get(`${this.webService.ROOT_URL}/users/me/access-token`, {
       headers: {
         'x-refresh-token': this.getRefreshToken(),
-        '_id': this.getUserId()
+        _id: this.getUserId()
       },
       observe: 'response'
     }).pipe(
       tap((res: HttpResponse<any>) => {
         this.setAccessToken(res.headers.get('x-access-token'));
       })
-    )
+    );
   }
 }
