@@ -15,8 +15,14 @@ import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 
+import { MessagesComponent } from './pages/messages/messages.component';
+import { ManageComponent } from './pages/manage/manage.component';
 import { CurrenciesComponent } from './pages/currencies/currencies.component';
+import { EditMessageComponent } from './pages/edit-message/edit-message.component';
 
+import { CurrenciesFilterPipe } from './pages/currencies/currencies-filter.pipe';
+
+import { DistinctwordsPipe } from './pipes/distinctwords.pipe';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
@@ -36,6 +42,11 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     CurrenciesComponent,
     AdminPageComponent,
     EditUserComponent,
+    MessagesComponent,
+    ManageComponent,
+    EditMessageComponent,
+    CurrenciesFilterPipe,
+    DistinctwordsPipe 
   ],
   imports: [
     BrowserModule,

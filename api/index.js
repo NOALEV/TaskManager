@@ -1,16 +1,20 @@
 const express = require('express');
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 const { mongoose } = require('./db/mongoose');
 
 const bodyParser = require('body-parser');
 
 // Load in the mongoose models
-const { List, Task, User, Currency } = require('./db/models');
+const { List, Task, User, Currency, Messages } = require('./db/models');
 
 const jwt = require('jsonwebtoken');
 
 const CurrenciesHelper = require('./helpers/currencies');
+
+const HyperLogLog = require('hyperloglog-lite');
 
 
 /* MIDDLEWARE  */
@@ -21,7 +25,8 @@ app.use(bodyParser.json());
 
 // CORS HEADERS MIDDLEWARE
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", 'true');
+    res.header("Access-Control-Allow-Origin", 'http://localhost:4200');
     res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token, x-refresh-token, _id");
 
@@ -74,7 +79,7 @@ let verifySession = (req, res, next) => {
         req.user_id = user._id;
         req.userObject = user;
         req.refreshToken = refreshToken;
-        req.user_admin=user.admin;
+        req.user_admin = user.admin;
 
         let isSessionValid = false;
 
@@ -148,8 +153,7 @@ app.post('/lists', authenticate, (req, res) => {
     // We want to create a new list and return the new list document back to the user (which includes the id)
     // The list information (fields) will be passed in via the JSON request body
     let title = req.body.title;
-    let category=req.body.category;
-
+    let category = req.body.category;
     let newList = new List({
         title,
         category,
@@ -170,7 +174,7 @@ app.patch('/lists/:id', authenticate, (req, res) => {
     List.findOneAndUpdate({ _id: req.params.id, _userId: req.user_id }, {
         $set: req.body
     }).then(() => {
-        res.send({ 'message': 'updated successfully'});
+        res.send({ 'message': 'updated successfully' });
     });
 });
 
@@ -279,8 +283,8 @@ app.patch('/lists/:listId/tasks/:taskId', authenticate, (req, res) => {
                 _id: req.params.taskId,
                 _listId: req.params.listId
             }, {
-                    $set: req.body
-                }
+                $set: req.body
+            }
             ).then(() => {
                 res.send({ message: 'Updated successfully.' })
             })
@@ -309,7 +313,7 @@ app.delete('/lists/:listId/tasks/:taskId', authenticate, (req, res) => {
         // else - the list object is undefined
         return false;
     }).then((canDeleteTasks) => {
-        
+
         if (canDeleteTasks) {
             Task.findOneAndRemove({
                 _id: req.params.taskId,
@@ -335,7 +339,9 @@ app.post('/users', (req, res) => {
     // User sign up
 
     let body = req.body;
+    body.isConnected = true;
     let newUser = new User(body);
+
 
     newUser.save().then(() => {
         return newUser.createSession();
@@ -353,6 +359,7 @@ app.post('/users', (req, res) => {
             .header('x-refresh-token', authTokens.refreshToken)
             .header('x-access-token', authTokens.accessToken)
             .send(newUser);
+        getNumOfUsers();
     }).catch((e) => {
         res.status(400).send(e);
     })
@@ -383,6 +390,7 @@ app.post('/users/login', (req, res) => {
                 .header('x-refresh-token', authTokens.refreshToken)
                 .header('x-access-token', authTokens.accessToken)
                 .send(user);
+            getNumOfUsers();
         })
     }).catch((e) => {
         res.status(400).send(e);
@@ -402,7 +410,6 @@ app.get('/users/me/access-token', verifySession, (req, res) => {
         res.status(400).send(e);
     });
 })
-
 /**
  * GET /brunches-locations
  * Purpose: Get all brunches locations for showing on map
@@ -430,14 +437,15 @@ app.get('/tasks-summary', authenticate, (req, res) => {
 });
 
 
+
 //Get  all the Users
 app.get('/users', authenticate, (req, res) => {
-User.find({
+    User.find({
 
-}).then((users)=>{
-    res.send(users);
-}
-)
+    }).then((users) => {
+        res.send(users);
+    }
+    )
 })
 //delete user
 app.delete('/users/:id', authenticate, (req, res) => {
@@ -453,22 +461,68 @@ app.delete('/users/:id', authenticate, (req, res) => {
 //edit user
 app.patch('/users/:id/', authenticate, (req, res) => {
     // We want to update the specified list (list document with id in the URL) with the new values specified in the JSON body of the request
-    User.findOneAndUpdate({ _id: req.params.id}, {
+    User.findOneAndUpdate({ _id: req.params.id }, {
         $set: req.body
     }).then(() => {
-        res.send({ 'message': 'updated successfully'});
+        res.send({ 'message': 'updated successfully' });
+        getNumOfUsers();
 
     });
-    
+
+});
+app.get('/users/count', authenticate, (req, res) => {
+    User.aggregate(
+        [
+            {
+                $match: { isConnected: true }
+            },
+            {
+                $count: 'connected'
+            }
+        ]
+    ).then((count) => {
+        res.send(count);
+    }
+    )
+
 });
 
+app.get('/usersByCities', authenticate, (req, res) => {
+    User.aggregate([
+        { '$group': { 
+            '_id': '$city' , 
+            'total': { '$sum': 1 } 
+        } },
+        { '$sort': { 'total': -1 } } 
+    ], function(err, results) {
+        console.log(results);
+        res.json(results);
+    });
+})
 
-app.get('/currencies', authenticate , (req , res)=>{
+app.get('/listCategoriesByUsers', authenticate, (req, res) => {
+
+    var o = {};
+    o.map = function () {
+        emit(this.category, 1)
+    };
+    o.reduce = function (k, vals) {
+        return vals.length
+    };
+
+    List.mapReduce(o, function (err, results) {
+        if(err) throw err;
+        console.log(results)
+        res.json(results.results);
+    });
+});
+
+app.get('/currencies', authenticate, (req, res) => {
     Currency.find()
-    .then(data=>{
-        res.send(data);
-    })
-    .catch(err=>console.dir(err));
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => console.dir(err));
 });
 
 /* HELPER METHODS */
@@ -479,34 +533,144 @@ let deleteTasksFromList = (_listId) => {
         console.log("Tasks from " + _listId + " were deleted!");
     })
 }
-//START CURRENCIES WEB SCRAPPER
-const checkForCurrencies = ()=>{
-    Currency.find()
-    .then(res=>{
-        if(res.length = 0 ){
-            CurrenciesHelper.getData();
-        }
-    })
-    .catch(err=>{
-        if(err.code === 26){
-            CurrenciesHelper.getData();
-        }else{
-            console.log(err);
-        }
-    });
+let getNumOfUsers = () => {
+    User.aggregate(
+        [
+            {
+                $match: { isConnected: true }
+            },
+            {
+                $count: 'connected'
+            }
+        ]
+    ).then((count) => {
+        io.sockets.emit('event', count);
+        console.log(count);
+    }
+    )
 }
-const getNewCurrencies = ()=>{
-    mongoose.connection.dropCollection('currencies',((err , res)=>{
-        if(res) return CurrenciesHelper.getData();
-        if(err.code === 26){
+//socket
+/*io.on('connection',function(socket)
+{
+console.log("User connected")
+socket.emit();
+});*/
+
+
+
+//START CURRENCIES WEB SCRAPPER
+const checkForCurrencies = () => {
+    Currency.find()
+        .then(res => {
+            if (res.length = 0) {
+                CurrenciesHelper.getData();
+            }
+        })
+        .catch(err => {
+            if (err.code === 26) {
+                CurrenciesHelper.getData();
+            } else {
+                console.log(err);
+            }
+        });
+}
+const getNewCurrencies = () => {
+    mongoose.connection.dropCollection('currencies', ((err, res) => {
+        if (res) return CurrenciesHelper.getData();
+        if (err.code === 26) {
             CurrenciesHelper.getData();
-        }else{
+        } else {
             console.log(err);
-        } 
+        }
     }));
 }
-checkForCurrencies();
+CurrenciesHelper.getData();
+//checkForCurrencies();
 //END CURRENCIES WEB SCRAPPER
+
+
+//MessagesSchema
+//get all messages
+app.get('/messages', authenticate, (req, res) => {
+    Messages.find({
+    }).then((messages) => {
+        res.send(messages);
+    }
+    ).catch((e) => {
+        res.send(e);
+    });
+})
+
+// Count distinct words in messages
+app.get('/numDistinctWordsInMessages', authenticate, (req, res) => {
+    const hll = HyperLogLog(12);
+    Messages.find({
+    }).then((messages) => {
+        for(let msg of messages) {
+          const words = msg.title.split(" ");
+          for(let word of words) {
+            hll.add(HyperLogLog.hash(word));
+          }
+        }
+        const numDistinctWordsObj  = { "numDistinctWords" : hll.count() }
+        console.log(numDistinctWordsObj);
+        res.send(numDistinctWordsObj);
+    }
+    ).catch((e) => {
+        res.send(e);
+    });
+})
+
+//delete message
+app.delete('/messages/:id', authenticate, (req, res) => {
+    // We want to delete the specifiedt id (document with id in the URL)
+    Messages.findOneAndRemove({
+        _id: req.params.id,
+    }).then((removedMessageDoc) => {
+        res.send(removedMessagetDoc);
+        io.sockets.emit('message', 'MessageUpdate');
+    }).catch((e) => {
+        res.status(400).send(e);
+        io.sockets.emit('message', 'MessageUpdate');
+    });
+});
+
+
+//post
+app.post('/message', authenticate, (req, res) => {
+
+    let newMessage = new Messages({
+        title: req.body.title,
+    });
+    newMessage.save().then((newMessageDoc) => {
+        res.send(newMessageDoc);
+        io.sockets.emit('message', 'MessageUpdate');
+    })
+
+});
+
+
+//edit message
+app.patch('/messages/:id/', authenticate, (req, res) => {
+    // We want to update the specified list (list document with id in the URL) with the new values specified in the JSON body of the request
+    Messages.findOneAndUpdate({ _id: req.params.id }, {
+        $set: req.body
+    }).then(() => {
+        res.send({ 'message': 'updated successfully' });
+        io.sockets.emit('message', 'MessageUpdate');
+
+    });
+
+});
+
+
+
+
+
+
+server.listen(3100, () => {
+    console.log("Socket is listening on port 3100");
+})
 
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");

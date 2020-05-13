@@ -23,8 +23,11 @@ export class MessagesService {
   updateMessage(id: string, title: string) {
     // We want to send a web request to update a message
     return this.webReqService.patch(`messages/${id}`, { title });
-
   }
 
+  getNumDistinctWordsInMessages() {
+    return this.webReqService.get('numDistinctWordsInMessages');
+    
+  }
 
 }

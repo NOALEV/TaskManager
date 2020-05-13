@@ -15,13 +15,17 @@
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
+    "hyperloglog-lite": "^1.0.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mongoose": "^5.9.2",
     "parser": "^0.1.4",
     "request": "^2.88.2",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.5",
+    "socket.io-server": "^1.0.0-b"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "socket.io": "^2.3.0"
+  },
   "description": ""
 }

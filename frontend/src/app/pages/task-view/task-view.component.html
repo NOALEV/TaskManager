@@ -1,6 +1,8 @@
+
+<app-messages *ngIf=!getIsAdmin()></app-messages>
 <div class="centered-content">
   <div class="currencies">
-    <app-currencies></app-currencies>
+
   </div>
   <div class="task-manager-container">
  
@@ -36,7 +38,7 @@
       <div *ngIf="tasks">
         <div class="top-bar">
           <h1 class="title has-text-primary">
-            Tasks
+            {{ getUser()}} Tasks
           </h1>
           <div class="dropdown is-hoverable is-right">
             <div class="dropdown-trigger">
@@ -108,16 +110,15 @@
 
     </div>
 
-    <h1>Hello {{ getUser()}}</h1>
-    <button class="button is-primary has-text-white" *ngIf="getIsAdmin()" routerLink='/admin'> admin</button>
-  
-    
-    
-    <button class="button is-success has-text-white"(click)="logout()">
+    <button class="logout-button button is-primary is-hovered"(click)="logout()">
       Logout
-    </button>
-  
+   </button>
 
+    <app-manage></app-manage>
+
+    <button class="currency-button button is-primary is-hovered" routerLink="/currencies">Currencies</button>
+  
+    
   
   </div>
   

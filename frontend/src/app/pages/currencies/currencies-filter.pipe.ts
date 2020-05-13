@@ -1,5 +1,5 @@
 
-/*import { PipeTransform, Pipe, OnInit } from '@angular/core';
+import { PipeTransform, Pipe, OnInit } from '@angular/core';
 import { Currencies } from 'src/app/models/currencies.model';
 declare var require: any;
 
@@ -33,4 +33,3 @@ export class CurrenciesFilterPipe implements PipeTransform {
 
   }
 }
-*/

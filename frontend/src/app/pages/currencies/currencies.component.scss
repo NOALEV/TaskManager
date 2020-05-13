@@ -1,7 +1,4 @@
 @import '../../../main-styles.scss';
-.hidden{
-    display: none;
-}
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -12,6 +9,7 @@ table {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+    width: 300px;
   }
   .task-manager-container {
     display: flex;
@@ -22,10 +20,9 @@ table {
 }
 
 .sidebar {
-    display: table;
+    display: flex;
     flex-direction: column;
-   width: 800px;
-    background: white;
+  
     padding: 42px;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -54,7 +51,7 @@ table {
 }
 
 .list-menu {
-    
+    display: table-column;
     flex-direction: row-reverse;
     margin-top: 11px;
     flex-grow: 1; 
@@ -77,7 +74,7 @@ table {
         &.is-active {
             background-color: #cff8ef;
             color: $dark-green;
-        }    
+        }
     }
 }
 
@@ -131,30 +128,4 @@ table {
     font-size: 20px;
     color: #777;
     text-align: center;
-}
-
-.sendButton{
-    position: relative;
-    bottom: 22px;
-    right: -28px;
-    height: -42xpx;
-    top:-45px;
-    width: 103px;
-    border-radius: 36%;
-    background-color: #27d7a1;
-    border-color: transparent;
-   
-}
-.message
-{
-margin-left: auto;
-margin-right: 30px;
-}
-.h2{
-    font-size:121%;
-    font-weight: normal;
-}
-.title{
-    padding-top: inherit;
-    width: 800px;
 }
