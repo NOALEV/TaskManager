@@ -26,6 +26,13 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 8
     },
+
+    isConnected:
+    {
+        type:Boolean,
+        required:true,
+    },
+
     city: {
         type: String,
         required: true,
@@ -195,6 +202,7 @@ let saveSessionToDatabase = (user, refreshToken) => {
         let expiresAt = generateRefreshTokenExpiryTime();
 
         user.sessions.push({ 'token': refreshToken, expiresAt });
+        user.isConnected=true;
 
         user.save().then(() => {
             // saved session successfully
