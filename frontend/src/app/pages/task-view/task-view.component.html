@@ -1,5 +1,40 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-menu is-hoverable">
+    
 
-<app-messages *ngIf=!getIsAdmin()></app-messages>
+    <div class="navbar-start">
+      
+      
+       
+        <a class="navbar-item" routerLink="/lists">
+        Home
+        </a>
+      <a class="navbar-item" routerLink="/currencies">
+        Currencies
+      </a>
+      <a class="navbar-item" routerLink="/graph">
+        Tasks Summary
+      </a>
+      <a class="navbar-item" routerLink="/location">
+        Users location
+      </a>
+      <a *ngIf="getIsAdmin()" class="navbar-item" routerLink='/admin'>
+        Admin
+       </a>
+    </div>
+     <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" (click)="logout()">
+            Logout
+          </a>
+        </div>
+      </div>
+  
+    </div>
+    </div>
+</nav>
+<app-messages></app-messages>
 <div class="centered-content">
   <div class="currencies">
 
@@ -12,9 +47,11 @@
       </h1>
       <div class="filters-row-container">
         Filters:
-        <input class="input" #freeText placeholder="Type free text..." type="text" />
-        <input placeholse="sss" #taskTimeInput class="input has-background-light is-medium" type="date" min="2018-01-01" max="2022-12-31" >
-        <select #listCategoryInput class="input has-background-light" >  
+        <input class="input has-background-light is-medium" #freeText placeholder="Type free text..." type="text"  style="margin-top:10px"/>
+        
+        <input placeholder="date" #taskTimeInput class="input has-background-light is-medium" type="date" min="2018-01-01" max="2022-12-31"  style="margin-top:10px" >
+       
+        <select #listCategoryInput class="input has-background-light"  style="margin-top:10px" >  
             <option label="" value="">All Categories</option>  
             <option label="Shopping">Shopping List</option>  
             <option label="Home ">Home List</option>  
@@ -22,9 +59,10 @@
             <option label="Appointments">Appointments List</option> 
             <option label="Other">Other List</option>  
         </select> 
-        <button style="width: 100%" class="button is-primary" (click)="onListsFilter(freeText.value, taskTimeInput.value, listCategoryInput.value)">Search</button>
+       
+        <button style="width: 100% ; margin-top: 10px;"  class="button is-primary has-text-white" (click)="onListsFilter(freeText.value, taskTimeInput.value, listCategoryInput.value)">Search</button>
       </div>
-      <div class="list-menu">
+      <div class="list-menu" style="max-height: 300px;overflow-y: auto;">
         <a class="list-menu-item" *ngFor="let list of lists" [routerLink]="['/lists', list._id]" routerLinkActive="is-active">
           <p>{{ list.title }}</p>
         </a>
@@ -64,10 +102,11 @@
         <div class="filters-row-container">
           Filters:
           <div class="filters-row">
-            <input class="input" #freeText placeholder="Type free text..." type="text" />
-            <input placeholse="sss" #taskTimeInput class="input has-background-light is-medium" type="date" min="2018-01-01" max="2022-12-31" >
+          
+            <input class="input" #freeText placeholder="Type free text..." type="text" style="margin-right: 10px;" />
+            <input placeholse="sss" #taskTimeInput class="input " type="date" min="2018-01-01" max="2022-12-31" style="margin-right: 10px;" >
             <label>Only pending<input type="checkbox" #onlyPending /></label>
-            <button class="button is-primary" (click)="onTasksFilter(freeText.value, taskTimeInput.value, onlyPending.checked)">Search</button>
+            <button class="button is-primary has-text-white" (click)="onTasksFilter(freeText.value, taskTimeInput.value, onlyPending.checked)">Search</button>
           </div>
         </div>
 
@@ -110,37 +149,9 @@
 
     </div>
 
-    <button class="logout-button button is-primary is-hovered"(click)="logout()">
-      Logout
-   </button>
 
-    <app-manage></app-manage>
-
-    <button class="currency-button button is-primary is-hovered" routerLink="/currencies">Currencies</button>
-  
-    
   
   </div>
   
 </div>
-<div style="text-align: center;">
-  <app-bar-chart title="Tasks Summary:" [data]="tasksSummary"></app-bar-chart>
-</div>
-<div class="centered-content" style="height: 520px;">
-  <div class="task-manager-container">
-    <div class="task-list-container has-background-light">
-      <h1>Users Location</h1>
-      <google-map
-        height="400px"
-        width="916px"
-        [center]="center"
-        [zoom]="zoom"
-      >
-        <map-marker #marker
-          *ngFor="let brunchLocation of brunchesLocations"
-          [position]="brunchLocation"
-        ></map-marker>
-      </google-map>
-    </div>
-  </div>
-</div>
+

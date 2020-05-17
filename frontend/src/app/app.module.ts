@@ -26,6 +26,9 @@ import { DistinctwordsPipe } from './pipes/distinctwords.pipe';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { GraphComponent } from './pages/graph/graph.component';
+import { UsersLocationComponent } from './pages/users-location/users-location.component';
+import { MenuComponent } from './pages/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,10 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     ManageComponent,
     EditMessageComponent,
     CurrenciesFilterPipe,
-    DistinctwordsPipe 
+    DistinctwordsPipe,
+    GraphComponent,
+    UsersLocationComponent,
+    MenuComponent 
   ],
   imports: [
     BrowserModule,

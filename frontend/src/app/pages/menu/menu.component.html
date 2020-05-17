@@ -1,0 +1,37 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-menu is-hoverable">
+      
+  
+      <div class="navbar-start">
+        
+        
+         
+          <a class="navbar-item" routerLink="/lists">
+          Home
+          </a>
+        <a class="navbar-item" routerLink="/currencies">
+          Currencies
+        </a>
+        <a class="navbar-item" routerLink="/graph">
+          Tasks Summary
+        </a>
+        <a class="navbar-item" routerLink="/location">
+          Users location
+     
+        </a>
+        <a *ngIf="getIsAdmin()" class="navbar-item" routerLink='/admin'>
+          Admin
+         </a>
+      </div>
+       <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" (click)="logout()">
+              Logout
+            </a>
+          </div>
+        </div>
+    
+      </div>
+      </div>
+  </nav>

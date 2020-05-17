@@ -12,6 +12,9 @@ import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { EditMessageComponent } from './pages/edit-message/edit-message.component';
 import { CurrenciesComponent } from './pages/currencies/currencies.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { GraphComponent } from './pages/graph/graph.component';
+import { UsersLocationComponent } from './pages/users-location/users-location.component';
 
 
 
@@ -31,7 +34,9 @@ const routes: Routes = [
   { path: 'users/:userId', component: AdminPageComponent },
   { path: 'edit-message/:messageId', component: EditMessageComponent },
   { path: 'messages/:messageId', component: AdminPageComponent },
-  { path: 'currencies', component: CurrenciesComponent }
+  { path: 'currencies', component: CurrenciesComponent },
+  { path: 'graph', component: GraphComponent },
+  { path: 'location', component: UsersLocationComponent },
 ];
 
 @NgModule({

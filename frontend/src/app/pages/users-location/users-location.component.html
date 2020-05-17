@@ -1,0 +1,20 @@
+<app-menu></app-menu>
+<div class="centered-content" style="height: 520px;">
+    <div class="task-manager-container">
+      <div class="task-list-container has-background-light">
+       
+        <google-map
+          height="400px"
+          width="916px"
+          [center]="center"
+          [zoom]="zoom"
+        >
+          <map-marker #marker
+            *ngFor="let brunchLocation of brunchesLocations"
+            [position]="brunchLocation"
+          ></map-marker>
+        </google-map>
+      </div>
+    </div>
+  </div>
+  

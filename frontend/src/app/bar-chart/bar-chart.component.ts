@@ -4,6 +4,9 @@ import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
+import { TaskService } from '../task.service';
+import { Task } from '../models/task.model';
+import { List } from '../models/list.model';
 
 const STATISTICS = [
 ];
@@ -12,9 +15,12 @@ const STATISTICS = [
     selector: 'app-bar-chart',
     encapsulation: ViewEncapsulation.None,
     templateUrl: './bar-chart.component.html',
-    styleUrls: ['./bar-chart.component.css']
+    styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent implements OnInit {
+    lists: List[];
+    tasks: Task[];
+    tasksSummary: Array<{ count: number, title: string }>;
 
     @Input()
     title: string;
@@ -30,9 +36,13 @@ export class BarChartComponent implements OnInit {
     private svg: any;
     private g: any;
 
-    constructor() {}
+    constructor(private taskService: TaskService) {}
 
     ngOnInit() {
+        this.taskService.getTasksSummary().subscribe((tasks: Array<{ count: number, title: string }>) => {
+            console.log('taskssummary', tasks);
+            this.tasksSummary = tasks;
+        });
         this.initSvg();
         this.initAxis(STATISTICS);
         this.drawAxis();
