@@ -1,10 +1,11 @@
 <div class="centered-content">
+  <form [formGroup]="registerForm" >
   <div class="white-box">
 
     <h1 class="title has-text-primary">Sign up</h1>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
-        <input #nameInput class="input has-background-light" type="UserName" placeholder="Name">
+        <input #nameInput formControlName="nameInput" class="input has-background-light" type="UserName" placeholder="Name">
         <span class="icon is-small is-left">
           <i class="fas fa-user"></i>
         </span>
@@ -12,7 +13,7 @@
     </div>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
-        <input #emailInput class="input has-background-light" type="email" placeholder="Email">
+        <input #emailInput formControlName="emailInput" class="input has-background-light" type="email" placeholder="Email">
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
         </span>
@@ -20,7 +21,7 @@
     </div>
     <div class="field">
       <p class="control has-icons-left">
-        <input #pwInput class="input has-background-light" type="password" placeholder="Password">
+        <input #pwInput formControlName="pwInput" class="input has-background-light" type="password" placeholder="Password">
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
@@ -29,7 +30,7 @@
     <div class="field">
       <p class="control has-icons-left">
         
-        <select #cityInput class="input has-background-light">  
+        <select #cityInput formControlName="cityInput" class="input has-background-light">  
             
           <option label="choose city">Other</option>  
           <option *ngFor="let item of citiesLocation | keyvalue" [value]="item.key">{{item.key}}</option>  
@@ -53,5 +54,29 @@
 
     <p class="has-text-grey">Already got an account? <a routerLink="/login">Login</a> now!</p>
 
+    <div class="err" *ngIf="submitted && f.emailInput.errors">
+      <p *ngIf="f.emailInput.errors.required">Email is required</p>
+      <p *ngIf="f.emailInput.errors.email">Email must be a valid email address</p>
+     
+
+    </div>
+    <div class="err" *ngIf="submitted && f.pwInput.errors">
+     
+      <p *ngIf="f.pwInput.errors.required">Password is required</p>
+      <p *ngIf="f.pwInput.errors.minlength">Password must be at least 8 characters</p>
+
+    </div>
+
+    <div class="err" *ngIf="submitted && f.cityInput.errors">
+     
+      <p *ngIf="f.cityInput.errors.required">City is required</p>
+    </div>
+    <div class="err" *ngIf="submitted && f.nameInput.errors">
+     
+      <p *ngIf="f.nameInput.errors.required">UserName is required</p>
+      <p *ngIf="f.nameInput.errors.minlength">UserName must be at least 3 characters</p>
+
+    </div>
   </div>
+  </form>
 </div>

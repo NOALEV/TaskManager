@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import {UserService} from 'src/app/user.service';
+
 
 @Component({
   selector: 'app-menu',
@@ -8,14 +10,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  constructor( private route: ActivatedRoute, private router: Router,) { }
+  constructor( private route: ActivatedRoute, private router: Router,private userService: UserService) { }
 
   ngOnInit(): void {
   }
   logout() {
-    this.removeSession();
-
-    this.router.navigate(['/login']);
+    
+    this.userService.logout(localStorage.getItem('user-id')).subscribe((res: any) => {
+      this.removeSession();
+      this.router.navigate(['/login']);
+    });
   }
   private removeSession() {
     localStorage.removeItem('user-id');

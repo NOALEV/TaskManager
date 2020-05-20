@@ -99,11 +99,7 @@ export class TaskViewComponent implements OnInit {
       console.log(res);
     });
   }
-  logout() {
-    this.removeSession();
-
-    this.router.navigate(['/login']);
-  }
+ 
   private removeSession() {
     localStorage.removeItem('user-id');
     localStorage.removeItem('x-access-token');
