@@ -6,6 +6,8 @@ import { List } from 'src/app/models/list.model';
 import { AuthService } from 'src/app/auth.service';
 import {User} from 'src/app/models/user.model';
 import {UserService} from 'src/app/user.service';
+import { WebSocketService } from 'src/app/web-socket.service';
+
 
 
 @Component({
@@ -16,6 +18,7 @@ import {UserService} from 'src/app/user.service';
 export class TaskViewComponent implements OnInit {
 
   lists: List[];
+  users: User[];
   tasks: Task[];
   user: User;
   brunchesLocations: Array<{ lat: number, lng: number }>;
@@ -28,9 +31,12 @@ export class TaskViewComponent implements OnInit {
 
   selectedListId: string;
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router, private authService: AuthService, private userService: UserService) { }
+  constructor(private webSocketService:WebSocketService,private taskService: TaskService, private route: ActivatedRoute, private router: Router, private authService: AuthService, private userService: UserService) { }
 
   ngOnInit() {
+    this.webSocketService.listen('event').subscribe((data)=>{
+      console.log(data)
+          })
     this.route.params.subscribe(
       (params: Params) => {
         if (params.listId) {
@@ -49,9 +55,16 @@ export class TaskViewComponent implements OnInit {
       this.brunchesLocations = brunchesLocations;
     });
 
+    
     this.taskService.getLists().subscribe((lists: List[]) => {
       this.lists = lists;
-    });
+
+    })
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+
+  
+  })
 
 
     this.taskService.getTasksSummary().subscribe((tasks: Array<{ count: number, title: string }>) => {
