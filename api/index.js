@@ -470,6 +470,7 @@ app.patch('/users/:id/', authenticate, (req, res) => {
     });
 
 });
+//count the user that connected
 app.get('/users/count', authenticate, (req, res) => {
     User.aggregate(
         [
@@ -486,7 +487,7 @@ app.get('/users/count', authenticate, (req, res) => {
     )
 
 });
-
+//group by
 app.get('/usersByCities', authenticate, (req, res) => {
     User.aggregate([
         { '$group': { 
@@ -499,7 +500,7 @@ app.get('/usersByCities', authenticate, (req, res) => {
         res.json(results);
     });
 })
-
+//map-reduce
 app.get('/listCategoriesByUsers', authenticate, (req, res) => {
 
     var o = {};
@@ -516,7 +517,7 @@ app.get('/listCategoriesByUsers', authenticate, (req, res) => {
         res.json(results.results);
     });
 });
-
+//scarper
 app.get('/currencies', authenticate, (req, res) => {
     Currency.find()
         .then(data => {
